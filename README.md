@@ -10,21 +10,21 @@ still to be decided in a dedicated planning session — nothing here is final.
 
 ## Idea
 
-A reusable pipeline that helps you:
+A tool that helps you turn your real history into honest, tailored job-application
+materials. The exact steps, their ordering, and what it produces are **all still
+open** — see [PLANNING.md](PLANNING.md).
 
-1. **Intake** — ingest an existing resume (PDF / docx) into structured text.
-2. **Interview** — a guided "Claude interview" that elicits your facts, achievements, and stories.
-3. **Knowledge base** — a durable store of those facts/stories, reusable across every application.
-4. **Job analysis** — parse a target job posting and rank its requirements / desired features.
-5. **Tailoring** — match the knowledge base to a ranked job to generate a custom resume.
-6. **Apply** — assemble application materials (scope TBD; generate-first, no auto-submit for now).
+As a *strawman only* (not a decision — something to react to), an early sketch imagined:
+intake an old resume → interview to elicit facts & stories → build a reusable
+knowledge base → analyze/rank a target job → tailor a resume → assemble application
+materials. Expect this to be reordered, split, merged, or replaced during planning.
 
 ## Layout
 
 | Path | Purpose |
 |------|---------|
 | `SKILL.md` | Skill entry point / instructions (stub for now). |
-| `references/` | Per-stage reference docs for the pipeline above. |
+| `references/` | Reference docs (structure TBD). |
 | `scripts/` | Helper scripts (e.g. resume parsing). |
 | `templates/` | Resume / output templates. |
 | `data/` | **Your** personal inputs — **gitignored, never committed.** |
