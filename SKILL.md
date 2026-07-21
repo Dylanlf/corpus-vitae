@@ -1,9 +1,9 @@
 ---
-name: career-forge
+name: corpus-vitae
 description: STUB — will trigger on resume tailoring / job application tasks. Wording TBD in planning session.
 ---
 
-# career-forge (stub)
+# corpus-vitae (stub)
 
 > Placeholder. The real skill instructions, stage-by-stage flow, and tool/reference
 > wiring will be designed in a follow-up planning session.

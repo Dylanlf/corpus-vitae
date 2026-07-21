@@ -1,6 +1,9 @@
-# career-forge *(working name — TBD)*
+# corpus-vitae
 
 A Claude skill for going from an old resume to tailored applications, end to end.
+
+*The name plays on **curriculum vitae**: **corpus** is both the NLP term for a body
+of training text and the Latin for "body" — here, your **body of work**.*
 
 **Status:** bare-bones scaffold. Design, APIs, formats, and data schemas are all
 still to be decided in a dedicated planning session — nothing here is final.
