@@ -1,0 +1,15 @@
+# Personal inputs — never commit (keeps this repo safe to open-source)
+/data/*
+!/data/.gitkeep
+
+# OS / editor cruft
+.DS_Store
+*.swp
+.idea/
+.vscode/
+
+# Python (likely for parsing scripts later)
+__pycache__/
+*.pyc
+.venv/
+venv/
