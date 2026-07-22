@@ -2,6 +2,17 @@
 
 All notable changes to corpus-vitae. Versions are the `version` in `SKILL.md` frontmatter.
 
+## 1.3.0
+
+Added:
+- **Stage 9 — Phone-screen prep** (`references/09-interview-prep.md` + `templates/interview-prep.md`):
+  likely recruiter + hiring-manager questions with honest, corpus-grounded best answers, derived from
+  four sources — the JD, the gap analysis (tough/gap questions), the résumé's claims ("defend-the-
+  metric" drills = the defend-it-in-an-interview test made literal), and the narrative/goals
+  (behavioral + motivation). Includes questions to ask back and comp/logistics *framing* (no
+  personalized salary-negotiation advice). Honesty rule: never script a claim the user can't truly
+  defend — if prep surfaces one, fix the résumé, don't rehearse a spin.
+
 ## 1.2.0
 
 Added — the "callability & real output formats" release:

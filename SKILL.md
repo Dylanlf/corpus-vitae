@@ -10,7 +10,7 @@ description: >-
   a specific job, figure out what jobs to apply for, capture their career history, prep
   for a career change, or turn accomplishments into resume material — even if they don't
   say the word "resume." Does NOT apply to jobs on the user's behalf (out of scope).
-version: 1.2.0
+version: 1.3.0
 ---
 
 # corpus-vitae
@@ -63,6 +63,7 @@ Paths below use `data/<user>/…`; see **Multiple users** below for how the acti
 | 7 | Tailoring | corpus + posting + gaps | `.../resume.json`, `.../resume.md` | `references/07-tailoring.md` |
 | 7.5 | Callability review | résumé + posting | `.../callability.md` | `references/07b-callability-review.md` |
 | 8 | Format / export | `.../resume.json`/`.md` | `.../<Name>-Resume.pdf`/`.docx` | `references/08-formatting.md` |
+| 9 | Phone-screen prep | résumé + posting + gaps + narrative | `.../interview-prep.md` | `references/09-interview-prep.md` |
 
 **Stage 2.5 (Narrative interview)** is the skill's signature layer: it captures *disposition and
 trajectory* (growth arc, learning agility, differentiation, operating principles) — the evidence
