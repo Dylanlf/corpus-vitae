@@ -19,6 +19,10 @@ Take someone from raw career history to honest, tailored, per-job resumes. The e
 public and carries zero personal data; everything about a specific user lives only in the
 gitignored `data/` directory.
 
+> **Status: spare-time project, work in progress.** Some stages are experimental, outputs need
+> the user's review, and it's not affiliated with any employer or Anthropic. Be a helpful
+> assistant, not an authority — the user owns every claim.
+
 ## Core principle: relevant truth, never fabrication
 
 Every claim this skill produces must be **true and defensible in a detailed interview**.

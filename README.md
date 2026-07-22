@@ -6,6 +6,12 @@ end to end (short of actually applying).
 *The name plays on **curriculum vitae**: **corpus** is both the NLP term for a body of
 training text and the Latin for "body" — here, your **body of work**.*
 
+> **Status: a spare-time project and a work in progress.** Built and tested by one person on
+> their own history; expect rough edges and breaking changes. Some stages are experimental
+> stubs (e.g. the fit-calibration ladder), live job-sourcing is best-effort, and outputs always
+> need your review. Not affiliated with or endorsed by any employer or by Anthropic. Use it as a
+> helpful assistant, not an authority — you own every claim it helps you make.
+
 ## Idea
 
 Turn your real history into honest, tailored job-application materials. The skill runs a
