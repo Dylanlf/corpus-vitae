@@ -1,36 +1,60 @@
 # corpus-vitae
 
-A Claude skill for going from an old resume to tailored applications, end to end.
+A Claude skill for going from an old resume to honest, tailored, per-job applications —
+end to end (short of actually applying).
 
-*The name plays on **curriculum vitae**: **corpus** is both the NLP term for a body
-of training text and the Latin for "body" — here, your **body of work**.*
-
-**Status:** bare-bones scaffold. Design, APIs, formats, and data schemas are all
-still to be decided in a dedicated planning session — nothing here is final.
+*The name plays on **curriculum vitae**: **corpus** is both the NLP term for a body of
+training text and the Latin for "body" — here, your **body of work**.*
 
 ## Idea
 
-A tool that helps you turn your real history into honest, tailored job-application
-materials. The exact steps, their ordering, and what it produces are **all still
-open** — see [PLANNING.md](PLANNING.md).
+Turn your real history into honest, tailored job-application materials. The skill runs a
+guided, conversational pipeline and keeps a durable knowledge base ("corpus") of everything
+true about you, then reuses it to produce a "perfect but honest" resume for each job.
 
-As a *strawman only* (not a decision — something to react to), an early sketch imagined:
-intake an old resume → interview to elicit facts & stories → build a reusable
-knowledge base → analyze/rank a target job → tailor a resume → assemble application
-materials. Expect this to be reordered, split, merged, or replaced during planning.
+## Pipeline (7 stages)
+
+1. **Intake** — read an old resume you drop in `data/inbox/`.
+2. **Experience interview** — elicit the untold detail (STAR + competency coverage).
+3. **Knowledge base** — build `data/kb/corpus.json`, your reusable facts & stories.
+4. **Goals interview** — what you want next and why, calibrated to your level.
+5. **Coaching** — best-fit titles/directions, grounded in real job postings.
+6. **Scoring + gaps** — score each target on fit × desire; requirement-by-requirement gaps.
+7. **Tailoring** — a per-job resume, governed by a 0–10 honesty/tailoring dial.
+7.5. **Callability review** — score the résumé's chance of passing the ATS + recruiter screen; flag red flags.
+8. **Format / export** — an ATS-safe, text-layer **PDF** and **DOCX** (`scripts/render_resume.py`).
+
+Applying to jobs is **out of scope** (see future work in
+[references/00-overview.md](references/00-overview.md)).
+
+## Guiding principle: relevant truth, never fabrication
+
+Every claim must be true and defensible in a detailed interview. The honesty dial controls
+how aggressively we *frame* real experience — never whether we tell the truth. Even at its
+most aggressive setting, the skill never invents employers, dates, degrees, certifications,
+or metrics.
 
 ## Layout
 
 | Path | Purpose |
 |------|---------|
-| `SKILL.md` | Skill entry point / instructions (stub for now). |
-| `references/` | Reference docs (structure TBD). |
-| `scripts/` | Helper scripts (e.g. resume parsing). |
-| `templates/` | Resume / output templates. |
-| `data/` | **Your** personal inputs — **gitignored, never committed.** |
+| `SKILL.md` | Skill entry point — the map of the 7 stages and where to start. |
+| `references/` | One playbook per stage (`00`–`07`); read the relevant one before running a stage. |
+| `templates/` | Schema (`corpus.schema.md`) and output templates. |
+| `scripts/` | Helper scripts — `render_resume.py` (ATS-safe PDF/DOCX export) + `requirements.txt`. |
+| `data/<user>/` | **Your** personal inputs and outputs (per-user; supports multiple people on one machine) — **gitignored, never committed.** |
+| `ATTRIBUTIONS.md` | Borrowed methods, the JSON Resume schema, and O*NET (CC BY 4.0). |
 
 ## Design principle
 
-The **machinery is public; your data is private.** Everything a user needs to run the
-skill lives in the repo with zero PII. Personal inputs live only in local `data/`,
+The **machinery is public; your data is private.** Everything needed to run the skill lives
+in the repo with zero PII. Personal inputs and generated resumes live only in local `data/`,
 which is gitignored — so this repo can go public without leaking anyone's resume.
+
+## Data format
+
+The knowledge base is a [JSON Resume](https://jsonresume.org/) document plus a documented
+`x_cv` extension (STAR stories, provenance, confidence, competency tags). Tailored resumes
+are standard JSON Resume, rendered to Markdown and exported to an ATS-safe, text-layer **PDF** and
+**DOCX** (`scripts/render_resume.py`) — so they validate/render with the JSON Resume ecosystem and
+submit cleanly. Full spec: [templates/corpus.schema.md](templates/corpus.schema.md).
