@@ -37,6 +37,12 @@ Prefer **structured/keyless** sources; fall back to the user. Respect `goals.md`
    - one posting → `https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{id}`
    Small-batch/personal only (ToS gray area; don't bulk-harvest). This is "claude-fetch": Claude
    reads the guest response directly.
+1b. **`chrome-single` — logged-in real Chrome, ONE page.** For a single company/role of interest whose
+   posting is login-gated or blocks `WebFetch` (a full LinkedIn posting, an authenticated careers
+   portal), drive the user's **real Chrome** (`mcp__claude-in-chrome`) to open and read that one page.
+   Honest discipline: a single, human-directed fetch of a page the user chose, via their own session —
+   equivalent to them browsing to it — **not** list-scraping. One at a time; behave like normal
+   browsing. Requires the Chrome extension connected; fall back to guest-fetch / paste if absent.
 2. **Public ATS APIs via `scripts/fetch_jobs.py` (keyless, storable-per-ToS, most reliable):**
    - providers: **greenhouse · lever · ashby · smartrecruiters** (keyless). Add more by registering
      a `list(company)->[dict]` fn (endpoint patterns for Workable/Recruitee/etc. are known — verify
@@ -57,6 +63,9 @@ Prefer **structured/keyless** sources; fall back to the user. Respect `goals.md`
 5. **User paste (always-available fallback).** When automated fetch fails or a posting is behind a
    login, ask the user to paste the text or name company+role. A single real, complete posting
    beats ten half-scraped ones — this is normal, not a failure.
+
+**Ingestion:** `fetch_jobs.py` (scan / `--id`) also appends fetched jobs to the shared market store
+`data/_shared/jobs.jsonl`, which powers the index + dashboard (`references/10-market-db.md`).
 
 **Fetching gotchas (still true):** aggregators (Indeed/Glassdoor/startup.jobs) and `jobs.lever.co`
 HTML 403 `WebFetch`; `boards.greenhouse.io` 301-redirects to `job-boards.greenhouse.io` and job

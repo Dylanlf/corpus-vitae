@@ -59,6 +59,20 @@ only the underlying, uncopyrightable ideas and never their names as feature name
 - The four-circle "ikigai" Venn diagram (Marc Winn, 2014) — not reproduced and not presented
   as traditional Japanese philosophy.
 
+## Company / market intel data sources (v1.6)
+
+Fetched + stored under each source's license; attribution here satisfies the requirements. Ratings and
+awards are **not** stored — only deep-linked — so no license applies to them.
+
+- **Wikidata** — https://www.wikidata.org — firmographics (industry, employees, HQ, founded, website).
+  Licensed **CC0 1.0** (public domain); no attribution legally required, credited here anyway.
+- **Wikipedia** (Wikimedia REST API) — company summary text. **CC BY-SA 3.0/4.0** — attribution +
+  share-alike; summaries are shown with a link back to the article.
+- **U.S. BLS OEWS** (Occupational Employment & Wage Statistics), api.bls.gov — occupation salary
+  benchmarks. U.S. government **public domain**; freely storable/displayable.
+- **SEC EDGAR** (data.sec.gov), when used for public-company sector — U.S. government public domain
+  (requires a descriptive User-Agent).
+
 ## Data schemas & datasets reused
 
 - **JSON Resume schema** — https://jsonresume.org/ — MIT-licensed. Adopted as the canonical
@@ -77,6 +91,8 @@ only the underlying, uncopyrightable ideas and never their names as feature name
   and the **portals config + scan mode**. Reimplemented from scratch in Python stdlib (career-ops is
   Node/Playwright); its MIT license permits this with attribution, which this entry provides. We did
   not copy its code verbatim or vendor its files.
+  - v1.6 also adopts career-ops' **files-as-canon + derived-SQLite index** data model (Markdown/JSONL
+    are the source of truth; SQLite is a rebuildable index) and its **append-only ledger** discipline.
 
 ## Projects reviewed for design inspiration (no code or text reused)
 

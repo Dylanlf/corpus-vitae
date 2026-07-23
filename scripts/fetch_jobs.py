@@ -195,6 +195,29 @@ def _ledger_check_append(ledger, provider, job, sh):
     return dup
 
 
+DEFAULT_STORE = "data/_shared/jobs.jsonl"
+
+
+def append_store(store, provider, jobs):
+    """Append fetched jobs to the shared append-only ingestion log (data/_shared/jobs.jsonl)."""
+    if not store or not jobs:
+        return 0
+    os.makedirs(os.path.dirname(store) or ".", exist_ok=True)
+    today = datetime.date.today().isoformat()
+    with open(store, "a") as f:
+        for j in jobs:
+            rec = {"job_key": f"{provider}:{j.get('id','')}", "source": provider,
+                   "source_id": str(j.get("id", "")), "company": j.get("company", ""),
+                   "title": j.get("title", ""), "location": j.get("location", ""),
+                   "url": j.get("url", ""), "salary_raw": j.get("comp", ""),
+                   "employment_type": j.get("employment_type", ""), "department": j.get("department", ""),
+                   "posted_date": j.get("posted_date", ""), "ingested_at": today,
+                   "simhash": simhash(j.get("title", "") + " " + j.get("body", "")[:2000]),
+                   "body": j.get("body", "")}
+            f.write(json.dumps(rec, ensure_ascii=False) + "\n")
+    return len(jobs)
+
+
 def to_posting_md(job, provider):
     return (f"# {job['title']} — {job['company']}\n\n"
             f"- source_url: {job.get('url','')}\n"
@@ -208,9 +231,9 @@ def to_posting_md(job, provider):
             f"## Full text\n{job.get('body','')}\n")
 
 
-def run_scan(portals_path, match):
+def run_scan(portals_path, match, store=None):
     cfg = json.load(open(portals_path))
-    seen, rows = [], []
+    seen, rows, ingested = [], [], 0
     for co in cfg.get("tracked_companies", []):
         prov, slug = co.get("provider"), co.get("slug")
         if prov not in PROVIDERS:
@@ -220,15 +243,15 @@ def run_scan(portals_path, match):
         except Exception as e:
             print(f"  ! {prov}:{slug} failed: {e}"); continue
         m = (co.get("match") or match or "").lower()
-        for j in jobs:
-            if m and m not in j["title"].lower():
-                continue
+        matched = [j for j in jobs if not m or m in j["title"].lower()]
+        ingested += append_store(store, prov, matched)  # ingest into the shared log
+        for j in matched:
             sh = simhash(j["title"] + " " + j.get("body", "")[:2000])
             dup = any(hamming(sh, s) <= 3 for s in seen)
             seen.append(sh)
             rows.append((dup, prov, slug, j))
     uniq = sum(1 for r in rows if not r[0])
-    print(f"{uniq} unique / {len(rows)} total posting(s):")
+    print(f"{uniq} unique / {len(rows)} total posting(s)" + (f"; ingested {ingested} to {store}" if store else "") + ":")
     for dup, prov, slug, j in rows:
         print(f"  {'DUP ' if dup else '    '}[{prov}:{slug}] {j['title']}  |  {j.get('location','')}  |  id={j['id']}")
 
@@ -243,13 +266,16 @@ def main():
     ap.add_argument("--out", default=None)
     ap.add_argument("--ledger", default=None, help="scan-history.tsv path (default: targets/scan-history.tsv)")
     ap.add_argument("--portals", default=None, help="scan mode: JSON config with tracked_companies")
+    ap.add_argument("--store", default=DEFAULT_STORE, help=f"shared jobs log (default {DEFAULT_STORE})")
+    ap.add_argument("--no-store", action="store_true", help="don't append to the shared jobs log")
     ap.add_argument("--key", default=None); ap.add_argument("--email", default=None)
     args = ap.parse_args()
+    store = None if args.no_store else args.store
 
     if args.provider == "scan":
         if not args.portals:
             sys.exit("scan needs --portals <config.json> (see templates/portals.example.json)")
-        return run_scan(args.portals, args.match)
+        return run_scan(args.portals, args.match, store)
 
     if not args.target:
         sys.exit(f"{args.provider} needs a company/board slug (or keyword for usajobs).")
@@ -265,6 +291,7 @@ def main():
         if not sel.get("body") and args.provider in DETAIL:
             d = DETAIL[args.provider](args.target, args.id)
             sel["body"] = d.get("body", ""); sel["url"] = sel.get("url") or d.get("url", "")
+        append_store(store, args.provider, [sel])  # ingest the selected job into the shared log
         md = to_posting_md(sel, args.provider)
         if args.out:
             sh = simhash(sel["title"] + " " + sel.get("body", "")[:2000])

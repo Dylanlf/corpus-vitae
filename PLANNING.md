@@ -24,9 +24,11 @@ the questions that remain genuinely open (i.e. future work).
 ## Still open / future work
 
 - **The "apply" phase** — submissions, tracking, follow-ups. Deliberately out of scope for v1.
-- ~~**Structured job APIs** — USAJobs, Greenhouse/Lever/Ashby public JSON~~ **DONE**
-  (`scripts/fetch_jobs.py` + Stage-5 provider layer, default `linkedin-claude-fetch`); paid
-  storable corpora still open if bulk data is ever needed.
+- ~~**Structured job APIs** — USAJobs, Greenhouse/Lever/Ashby/SmartRecruiters public JSON~~ **DONE**
+  (`scripts/fetch_jobs.py` + Stage-5 provider layer, default `linkedin-claude-fetch`; + `chrome-single`);
+  paid storable corpora still open if bulk data is ever needed.
+- ~~**Central job DB + per-user tracking + dashboard + company intel**~~ **DONE** (v1.6:
+  files-canon JSONL + derived SQLite index; Wikidata/BLS intel; local `dashboard.html`).
 - **Skills taxonomy** — O*NET (CC BY 4.0) / SkillNER for stronger matching.
 - ~~**More output formats** — docx, PDF~~ **DONE** (Stage 8 via `scripts/render_resume.py`); HTML still open.
 - **Distribution** — if published for others: contribution model and how users supply their

@@ -8,14 +8,16 @@
   "job_source": "linkedin-claude-fetch",
   "output_formats": ["md", "pdf", "docx"],
   "usajobs": { "key": "", "email": "" },
+  "bls_key": "",
   "_field_docs": {
     "honesty_dial": "0-10 tailoring intensity (Stage 7); default 6. Framing only, never fabrication.",
     "build_credit": "true = include the neutral 'Drafted with corpus-vitae' footer on outputs.",
     "show_dial": "false = keep the honesty-dial number internal (resume.json meta), never printed.",
     "ai_narrative": "false = opt-in; when true, include the corpus-vitae 'I build with AI' project/cover element.",
     "audience": "'traditional' | 'ai-forward' — gates how prominently ai_narrative appears.",
-    "job_source": "Stage 5 default source: linkedin-claude-fetch | greenhouse | lever | ashby | usajobs | paste.",
+    "job_source": "Stage 5 default source: linkedin-claude-fetch | chrome-single | greenhouse | lever | ashby | smartrecruiters | usajobs | paste.",
     "output_formats": "Stage 8 formats to generate: any of md, pdf, docx.",
-    "usajobs": "Optional free API key + registered email for the usajobs source."
+    "usajobs": "Optional free API key + registered email for the usajobs source.",
+    "bls_key": "Optional free BLS API key → batched v2 salary-benchmark calls in fetch_company_intel.py (keyless v1 used if blank)."
   }
 }

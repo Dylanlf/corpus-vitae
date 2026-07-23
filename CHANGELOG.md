@@ -2,6 +2,25 @@
 
 All notable changes to corpus-vitae. Versions are the `version` in `SKILL.md` frontmatter.
 
+## 1.6.0
+
+Added — job market DB, per-user overlay & at-a-glance dashboard:
+- **Files-as-canon + derived SQLite** data model. Shared `data/_shared/jobs.jsonl` (append-only
+  ingestion log; `fetch_jobs.py` now appends here) + `companies.jsonl`; per-user
+  `data/<user>/interactions.jsonl` (like/dislike/status/notes) + `fit.jsonl` (Stage-6 scores).
+- **`scripts/build_index.py`** → rebuildable `data/<user>/index.db` (tables jobs/companies/
+  interactions/fit); derives `first_ingested`/`last_seen`/`times_seen` and SimHash `dedup_group` +
+  **repost/ghost-job flags** (`repost_of`, `repost_count`, `days_open`). Idempotent.
+- **`scripts/fetch_company_intel.py`** → firmographics from **Wikidata** (CC0) + **Wikipedia** (CC
+  BY-SA) + salary benchmark from **BLS OEWS** (public domain); ratings/awards as **deep-link
+  pointers only** (never scraped — Glassdoor has no legal API).
+- **`scripts/build_dashboard.py`** → local, self-contained, theme-aware `data/<user>/dashboard.html`:
+  best-fits-today ranked by capability×desire, with salary (posting or market benchmark), sector/size,
+  repost signal, rating/award links, and status. Read-only snapshot.
+- **`chrome-single`** Stage-5 source: logged-in real-Chrome fetch of a single login-gated posting
+  (one at a time, human-directed — not list-scraping). New references `10-market-db.md`,
+  `11-dashboard.md`; `preferences.json` gains `bls_key` + `chrome-single`.
+
 ## 1.5.0
 
 Added — sourcing depth (structure ported from `santifer/career-ops`, MIT; see ATTRIBUTIONS):

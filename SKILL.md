@@ -10,7 +10,7 @@ description: >-
   a specific job, figure out what jobs to apply for, capture their career history, prep
   for a career change, or turn accomplishments into resume material — even if they don't
   say the word "resume." Does NOT apply to jobs on the user's behalf (out of scope).
-version: 1.5.0
+version: 1.6.0
 ---
 
 # corpus-vitae
@@ -64,6 +64,8 @@ Paths below use `data/<user>/…`; see **Multiple users** below for how the acti
 | 7.5 | Callability review | résumé + posting | `.../callability.md` | `references/07b-callability-review.md` |
 | 8 | Format / export | `.../resume.json`/`.md` | `.../<Name>-Resume.pdf`/`.docx` | `references/08-formatting.md` |
 | 9 | Phone-screen prep | résumé + posting + gaps + narrative | `.../interview-prep.md` | `references/09-interview-prep.md` |
+| — | Job market DB *(subsystem)* | jobs + company intel + interactions | `data/_shared/*.jsonl`, `data/<user>/index.db` | `references/10-market-db.md` |
+| — | At-a-glance dashboard *(subsystem)* | `index.db` | `data/<user>/dashboard.html` | `references/11-dashboard.md` |
 
 **Stage 2.5 (Narrative interview)** is the skill's signature layer: it captures *disposition and
 trajectory* (growth arc, learning agility, differentiation, operating principles) — the evidence
@@ -127,7 +129,9 @@ Any explicit per-run instruction from the user overrides these. Fields:
 - `show_dial` (default **false**) — keep the dial number internal (`resume.json` `meta`), never printed.
 - `ai_narrative` (default **false**, opt-in) — the corpus-vitae "I build with AI" project/cover element.
 - `audience` (default **traditional**; or `ai-forward`) — gates how prominently `ai_narrative` shows.
-- `job_source` (default **`linkedin-claude-fetch`**) — Stage-5 default source (see `05-coaching.md`).
+- `job_source` (default **`linkedin-claude-fetch`**) — Stage-5 default source: `linkedin-claude-fetch`
+  | `chrome-single` (logged-in Chrome, one page) | `greenhouse`/`lever`/`ashby`/`smartrecruiters` |
+  `usajobs` | `paste` (see `05-coaching.md`).
 - `output_formats` (default **md, pdf, docx**) — Stage-8 formats to generate.
 - `usajobs` — optional free API key + email for the USAJobs source.
 

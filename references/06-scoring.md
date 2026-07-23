@@ -88,4 +88,10 @@ screening risk, legitimacy, one-line gist + recommended strategy) and discuss wi
 user can override the ordering — their priorities win.
 Typically you'd then tailor resumes (stage 7) for the ones they choose to pursue.
 
+## Persist fit for the dashboard
+When you score a target that exists in the market store, append the result to `data/<user>/fit.jsonl`:
+`{job_key, literal_fit, capability_fit, desire, screening_risk, corpus_hash, ts}` (`corpus_hash` =
+a hash of `corpus.json` so the index can flag stale scores). This feeds the index + at-a-glance
+dashboard (`references/10-market-db.md`, `11-dashboard.md`).
+
 **Next:** stage 7 (`references/07-tailoring.md`).

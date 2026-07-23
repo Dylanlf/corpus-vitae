@@ -33,6 +33,16 @@ into a job they don't literally match), and it's what the two-layer fit analysis
 cover/portfolio narrative (stage 7) draw on. It's the skill's signature capability — largely absent
 from other résumé tools, which stop at facts + tailoring.
 
+## Job market DB & dashboard (v1.6 subsystem)
+
+Beyond the per-target working files, there's a **market layer**: sourcing appends every fetched job to
+`data/_shared/jobs.jsonl`, company intel to `data/_shared/companies.jsonl`, and each user has
+`interactions.jsonl` (like/dislike/status) + `fit.jsonl` (Stage-6 scores). `scripts/build_index.py`
+compiles these JSONL files into a **rebuildable** `data/<user>/index.db` (files are canon; SQLite is a
+derived index), and `scripts/build_dashboard.py` renders a local `dashboard.html` of best-fits-today.
+Company intel is fetched only from redistribution-clean sources (Wikidata/Wikipedia/BLS); ratings and
+awards are deep-link pointers, never scraped. Details: `references/10-market-db.md`, `11-dashboard.md`.
+
 ## Design principles
 
 - **Machinery public, data private.** Everything in the repo is PII-free and safe to
