@@ -13,7 +13,10 @@ searchable job-search cockpit. **Files are canon; SQLite is a rebuildable index.
 ## Canonical files (append-only, human-readable JSONL)
 - `data/_shared/jobs.jsonl` — one line per *fetch event*. `fetch_jobs.py` appends here (scan ingests
   all matches; `--id` ingests the one). Re-fetching later adds a line → temporal signal. Key fields:
-  `job_key ("<source>:<source_id>"), company, title, location, url, salary_raw, ingested_at, simhash, body`.
+  `job_key ("<source>:<source_id>"), company, title, location, url, apply_url, salary_raw, ingested_at, simhash, body`.
+  `apply_url` = the exact posting on the employer's own site / ATS (where you'd actually apply), kept
+  distinct from `url`/`source_url` (where we found it). For ATS-sourced jobs the two are the same; for
+  LinkedIn/aggregator finds, capture the "Apply on company website" link (see `05-coaching.md`).
 - `data/_shared/companies.jsonl` — one intel snapshot per company (`fetch_company_intel.py`). **Stored**
   firmographics + salary benchmark; **pointer-only** rating/award URLs (never scraped values).
 - `data/<user>/interactions.jsonl` — append-only events: `{job_key, event: like|dislike|hide|status,

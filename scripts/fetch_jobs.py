@@ -209,7 +209,7 @@ def append_store(store, provider, jobs):
             rec = {"job_key": f"{provider}:{j.get('id','')}", "source": provider,
                    "source_id": str(j.get("id", "")), "company": j.get("company", ""),
                    "title": j.get("title", ""), "location": j.get("location", ""),
-                   "url": j.get("url", ""), "salary_raw": j.get("comp", ""),
+                   "url": j.get("url", ""), "apply_url": j.get("url", ""), "salary_raw": j.get("comp", ""),
                    "employment_type": j.get("employment_type", ""), "department": j.get("department", ""),
                    "posted_date": j.get("posted_date", ""), "ingested_at": today,
                    "simhash": simhash(j.get("title", "") + " " + j.get("body", "")[:2000]),
@@ -221,6 +221,7 @@ def append_store(store, provider, jobs):
 def to_posting_md(job, provider):
     return (f"# {job['title']} — {job['company']}\n\n"
             f"- source_url: {job.get('url','')}\n"
+            f"- apply_url: {job.get('url','')}\n"
             f"- employer: {job['company']}\n"
             f"- location: {job.get('location','')}\n"
             f"- date_seen: {datetime.date.today().isoformat()}\n"

@@ -121,7 +121,8 @@ For each posting the user wants to consider, create `data/targets/<slug>/` (slug
 ```markdown
 # <Job title> — <Company>
 
-- source_url: <url>
+- source_url: <where we FOUND it — LinkedIn/aggregator/search result>
+- apply_url: <the EXACT posting on the company's own site / ATS, if available; else "">
 - employer: <company>
 - location: <location / remote>
 - date_seen: 2026-07-21
@@ -136,6 +137,16 @@ For each posting the user wants to consider, create `data/targets/<slug>/` (slug
 ## Full text
 <the substantive posting text as fetched>
 ```
+
+**Always capture the exact company link.** For any job worth considering, find and record the
+**`apply_url`** — the real posting on the employer's own site / ATS (Greenhouse, Lever, Workday,
+Ashby…), not just the LinkedIn/aggregator link. That's where an application should actually go, and
+it's what future autofill will target. LinkedIn postings almost always have an "Apply on company
+website" link — follow it; otherwise check the company's careers page. Keep both: `source_url` (where
+we found it) and `apply_url` (where you apply). Jobs pulled from the ATS providers (Greenhouse/Lever/
+Ashby/SmartRecruiters) are *already* the company link — `apply_url` = that `url`. If no company link
+exists yet, leave `apply_url` blank and note it, rather than passing off the aggregator link as the
+apply link.
 
 Record the `source_url` and `employer` honestly; we treat postings as reference material for
 this user's own search. Don't build a bulk stored corpus of scraped jobs (that's a licensing

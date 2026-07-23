@@ -2,6 +2,18 @@
 
 All notable changes to corpus-vitae. Versions are the `version` in `SKILL.md` frontmatter.
 
+## 1.11.0
+
+Added — capture the **exact company/ATS apply link** (`apply_url`) for every job, distinct from where
+we found it (so applications go to the source, and future autofill has a real target):
+- **`posting.md`** (Stage 5) gains `apply_url`; `05-coaching.md` instructs capturing the employer's own
+  posting (the "Apply on company website" link), not just the LinkedIn/aggregator URL — leaving it
+  blank rather than passing an aggregator link off as the apply link.
+- **Store + index + dashboard:** `apply_url` added to `jobs.jsonl` (`fetch_jobs.py` sets it = the ATS
+  url for Greenhouse/Lever/Ashby/SmartRecruiters/USAJobs), carried through `build_index.py`'s jobs
+  table, and the dashboard now links the role to `apply_url` when present (falls back to the source
+  url). Verified fetch → index → dashboard end-to-end.
+
 ## 1.10.0
 
 Changed — make a fresh session usable by a **non-technical** person (e.g. a family member on a shared

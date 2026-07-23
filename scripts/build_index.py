@@ -150,7 +150,7 @@ def build(shared, user_dir, out):
     db = sqlite3.connect(out)
     db.executescript("""
       CREATE TABLE jobs(job_key TEXT PRIMARY KEY, source TEXT, company TEXT, company_key TEXT,
-        title TEXT, location TEXT, url TEXT, salary_raw TEXT, employment_type TEXT, department TEXT,
+        title TEXT, location TEXT, url TEXT, apply_url TEXT, salary_raw TEXT, employment_type TEXT, department TEXT,
         posted_date TEXT, first_ingested TEXT, last_seen TEXT, times_seen INT, simhash TEXT,
         dedup_group TEXT, is_repost INT, repost_of TEXT, repost_count INT, days_open TEXT, body TEXT);
       CREATE TABLE companies(company_key TEXT PRIMARY KEY, name TEXT, sector TEXT, industry TEXT,
@@ -161,9 +161,10 @@ def build(shared, user_dir, out):
         screening_risk TEXT, method TEXT, matched_skills INT, corpus_hash TEXT, ts TEXT);
     """)
     for k, j in jobs.items():
-        db.execute("INSERT INTO jobs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (
+        db.execute("INSERT INTO jobs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (
             k, j.get("source", ""), j.get("company", ""), norm_company(j.get("company", "")),
-            j.get("title", ""), j.get("location", ""), j.get("url", ""), j.get("salary_raw", ""),
+            j.get("title", ""), j.get("location", ""), j.get("url", ""),
+            j.get("apply_url", "") or j.get("url", ""), j.get("salary_raw", ""),
             j.get("employment_type", ""), j.get("department", ""), j.get("posted_date", ""),
             j.get("first_ingested", ""), j.get("last_seen", ""), j.get("times_seen", 1),
             str(j.get("simhash", "")), j.get("dedup_group", ""), j.get("is_repost", 0),

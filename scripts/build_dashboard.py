@@ -128,8 +128,9 @@ def build(db_path, out_path, user):
         awards = json.loads(j.get("award_pointers") or "[]")
         co = esc(j.get("company", ""))
         meta = " · ".join(x for x in (esc(j.get("sector", "")), (f"{esc(j.get('employees'))} emp" if j.get("employees") else "")) if x)
-        title_html = (f"<a href='{esc(j['url'])}' target='_blank' rel='noopener'>{esc(j['title'])}</a>"
-                      if j.get("url") else esc(j["title"]))
+        _link = j.get("apply_url") or j.get("url")  # prefer the company/ATS apply link
+        title_html = (f"<a href='{esc(_link)}' target='_blank' rel='noopener'>{esc(j['title'])}</a>"
+                      if _link else esc(j["title"]))
         status = f"<span class='st'>{esc(j['status'])}</span>" if j.get("status") else (
                  "👍" if j.get("rating") == "like" else "")
         trs.append(f"<tr><td class='title'>{title_html}<div class='co'>{co}{(' · ' + meta) if meta else ''} "

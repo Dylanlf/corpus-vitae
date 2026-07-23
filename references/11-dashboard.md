@@ -13,7 +13,9 @@ python scripts/build_dashboard.py --user <user>    # → data/<user>/dashboard.h
 Open `data/<user>/dashboard.html` in a browser.
 
 ## What it shows (per row, ranked by capability×desire)
-- **Role** (deep-links to the posting) + **company** with sector + employee count + location.
+- **Role** (deep-links to the posting) + **company** with sector + employee count + location. When an
+  **`apply_url`** (the company's own site / ATS posting) is present, link the role there — that's where
+  you'd actually apply — and keep the `source_url` as a secondary "where we found it" link.
 - **Fit** — capability/10 (the "can you do the real job" score), with literal fit + desire and a
   **screening-risk** badge (from Stage-6 two-layer scoring / `fit.jsonl`).
 - **Salary** — the posting range if given, else the **BLS occupation market median [p25–p75]** (labeled
