@@ -3,6 +3,23 @@
 **Goal:** get the user's existing history into plain text we can work from. Read, don't
 interpret. Interpretation happens in the interview (stage 2) and corpus-building (stage 3).
 
+## Step 0 — Profile / bio (do this first; local-only)
+
+Before reading any resume, capture the user's **profile** to `data/<user>/profile.json` (template:
+`templates/profile.example.json`) — a small structured bio: legal name (first / middle / last),
+preferred name, pronouns; contact (email, phone); location + relocation / remote preference; links
+(LinkedIn, GitHub, portfolio); **work eligibility** (work authorization, visa-sponsorship need);
+**job-search status** (open-to-work + since when, notice period, confidential?); comp expectations;
+and an optional voluntary EEO self-ID block.
+
+Why first: it makes the resume header accurate, and it's exactly the field set job applications ask
+for — so later we can **autofill (never auto-submit)** an application from it. Fill what the user
+states; leave unknowns blank and list them in `_confirm` — **don't guess** identity, location,
+work authorization, or self-ID. The `compensation` and `voluntary_self_id` blocks are sensitive:
+capture only if the user wants them, keep them local-only, and never put them on a resume or submit
+them automatically. Like all personal data, `profile.json` lives only under gitignored
+`data/<user>/`.
+
 ## Steps
 
 1. **Look in `data/inbox/`.** Create it if missing (`mkdir -p data/inbox`). List what's there.

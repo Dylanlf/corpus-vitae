@@ -10,7 +10,7 @@ description: >-
   a specific job, figure out what jobs to apply for, capture their career history, prep
   for a career change, or turn accomplishments into resume material — even if they don't
   say the word "resume." Does NOT apply to jobs on the user's behalf (out of scope).
-version: 1.8.0
+version: 1.9.0
 ---
 
 # corpus-vitae
@@ -52,6 +52,7 @@ Paths below use `data/<user>/…`; see **Multiple users** below for how the acti
 
 | # | Stage | Reads | Writes | Reference |
 |---|-------|-------|--------|-----------|
+| 0 | Profile / bio *(do first, local-only)* | user | `data/<user>/profile.json` | `references/01-intake.md` |
 | 1 | Intake | `data/<user>/inbox/*` | `data/<user>/inbox/_parsed.md` | `references/01-intake.md` |
 | 2 | Experience interview | parsed resume + user | (feeds stage 3) | `references/02-interview.md` |
 | 2.5 | Narrative interview | corpus + user | `x_cv.narrative` | `references/02b-narrative-interview.md` |

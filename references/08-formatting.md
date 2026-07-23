@@ -44,7 +44,9 @@ DIVIDERS   0.5pt hairline rule in #CCCCCC under each UPPERCASE heading. No thick
            no shaded bands, no boxed header — those are the template tells.
 CONTACT    Top of page 1 in the BODY (never the doc header/footer region — parsers drop it). Left-
            aligned name (not centered); one contact line, `·`-separated, no field labels. Whole
-           header block <= ~0.75in tall.
+           header block <= ~0.75in tall. Source the name + contact line from `data/<user>/profile.json`
+           (Stage 0) — legal/preferred name, email, phone, location, LinkedIn, GitHub — so it's exact.
+           Never put comp, work-authorization, or voluntary self-ID fields on the resume.
 HEADINGS   Standard literal names only: Summary, Skills, Experience, Projects, Education,
            Certifications. (Caps styling is fine; the word must stay intact in the text layer.)
 BULLETS    Standard round •, hanging indent. Start with a strong verb; lead with the metric.

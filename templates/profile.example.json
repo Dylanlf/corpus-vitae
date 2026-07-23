@@ -1,0 +1,72 @@
+{
+  "_comment": "Local-only bio/profile (v1.9). Lives at data/<user>/profile.json (gitignored — NEVER committed). Two jobs: (1) feed accurate contact/identity into the tailored resume header, and (2) hold the common fields job applications ask for, so we can eventually AUTOFILL (but never auto-submit) an application. Fill what's true; leave unknowns as empty strings/null and list them under _confirm. Do not guess identity, work-authorization, or self-ID fields — ask the user. The voluntary_self_id block is sensitive and optional (US EEO forms only); include it only if the user wants to, and never submit it on their behalf.",
+  "identity": {
+    "first_name": "Jane",
+    "middle_name": "",
+    "last_name": "Doe",
+    "preferred_name": "",
+    "pronouns": ""
+  },
+  "contact": {
+    "email": "jane.doe@example.com",
+    "phone": "+1 555-555-5555",
+    "personal_website": ""
+  },
+  "location": {
+    "city": "Seattle",
+    "region": "WA",
+    "country": "United States",
+    "postal_code": "",
+    "timezone": "America/Los_Angeles",
+    "willing_to_relocate": false,
+    "work_arrangement_pref": ["remote", "hybrid", "onsite"],
+    "relocate_notes": ""
+  },
+  "links": {
+    "linkedin": "https://www.linkedin.com/in/janedoe/",
+    "github": "https://github.com/janedoe",
+    "portfolio": "",
+    "google_scholar": "",
+    "twitter_x": "",
+    "other": []
+  },
+  "work_eligibility": {
+    "work_authorization": "US citizen",
+    "requires_visa_sponsorship": false,
+    "requires_sponsorship_now_or_in_future": false,
+    "authorized_countries": ["United States"],
+    "security_clearance": "none"
+  },
+  "job_search": {
+    "open_to_work": true,
+    "open_to_work_since": "2026-01-01",
+    "search_status": "active",
+    "confidential_search": false,
+    "available_start_date": "",
+    "notice_period_weeks": 2
+  },
+  "compensation": {
+    "_note": "Sensitive; local-only. Used to sanity-check fit and to answer 'desired comp' fields — never volunteered on a resume.",
+    "currency": "USD",
+    "desired_base_min": null,
+    "desired_total_min": null,
+    "current_total": null,
+    "comp_notes": ""
+  },
+  "voluntary_self_id": {
+    "_note": "OPTIONAL and sensitive — US EEO / voluntary self-identification only. Leave blank unless the user explicitly wants it captured; never auto-submit.",
+    "gender": "",
+    "race_ethnicity": "",
+    "hispanic_or_latino": null,
+    "veteran_status": "",
+    "disability_status": ""
+  },
+  "application_misc": {
+    "reference_available_on_request": true,
+    "requires_relocation_assistance": false,
+    "how_did_you_hear": ""
+  },
+  "_confirm": [
+    "Anything left blank/null above that a target application will ask for."
+  ]
+}

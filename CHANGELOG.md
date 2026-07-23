@@ -2,6 +2,19 @@
 
 All notable changes to corpus-vitae. Versions are the `version` in `SKILL.md` frontmatter.
 
+## 1.9.0
+
+Added — a local-only **profile / bio** as the first step (Stage 0):
+- **`data/<user>/profile.json`** (template `templates/profile.example.json`, gitignored) captures the
+  common application field set: legal name (first/middle/last), preferred name, pronouns; contact;
+  location + relocation/remote preference; links (LinkedIn/GitHub/portfolio); **work eligibility**
+  (work authorization, visa-sponsorship need); **job-search status** (open-to-work + since when,
+  notice period, confidential); comp expectations; and an optional, sensitive voluntary EEO self-ID
+  block. It makes the resume header accurate and is the basis for future **autofill (never
+  auto-submit)** of applications. Documented in `references/01-intake.md` (Step 0); unknowns are left
+  blank and listed under `_confirm` rather than guessed; identity/eligibility/self-ID are never
+  fabricated.
+
 ## 1.8.0
 
 Added — **value-thesis search** to beat the "title trap" (targeting one literal title, e.g. "data
