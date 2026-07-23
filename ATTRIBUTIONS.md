@@ -69,6 +69,15 @@ only the underlying, uncopyrightable ideas and never their names as feature name
   > This product uses O*NET data, which is provided by the U.S. Department of Labor,
   > Employment and Training Administration, and is used under the CC BY 4.0 license.
 
+## Code ported / adapted (MIT — with attribution)
+
+- **`santifer/career-ops` (MIT)** — the job-sourcing **structure** in `scripts/fetch_jobs.py` is a
+  Python port of ideas from career-ops: the **provider-registry** pattern over public ATS APIs, the
+  **SimHash cross-listing dedup**, the **append-only scan-history ledger**, the **liveness gate**,
+  and the **portals config + scan mode**. Reimplemented from scratch in Python stdlib (career-ops is
+  Node/Playwright); its MIT license permits this with attribution, which this entry provides. We did
+  not copy its code verbatim or vendor its files.
+
 ## Projects reviewed for design inspiration (no code or text reused)
 
 Studied to understand the landscape; nothing was copied. AGPL projects are treated as

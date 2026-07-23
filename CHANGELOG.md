@@ -2,6 +2,17 @@
 
 All notable changes to corpus-vitae. Versions are the `version` in `SKILL.md` frontmatter.
 
+## 1.5.0
+
+Added — sourcing depth (structure ported from `santifer/career-ops`, MIT; see ATTRIBUTIONS):
+- **SmartRecruiters** provider (keyless, incl. full description via its detail endpoint), joining
+  Greenhouse/Lever/Ashby/USAJobs in `scripts/fetch_jobs.py`, behind an extensible provider registry.
+- **SimHash cross-listing dedup** — flags near-identical JDs reposted across companies; a
+  `scan-history.tsv` **append-only ledger** warns when a saved posting duplicates a prior one.
+- **Liveness check** on save (warns if the source URL is dead/expired).
+- **`scan` mode + portals config** (`templates/portals.example.json`) — list roles across many
+  tracked companies at once, deduped.
+
 ## 1.4.0
 
 Added:

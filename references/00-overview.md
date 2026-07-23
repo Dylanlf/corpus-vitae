@@ -108,8 +108,10 @@ user's own job search.
 Keep these in mind so v1 choices don't paint us into a corner, but do **not** build them now:
 
 - **Structured job APIs — BUILT** (`scripts/fetch_jobs.py` + the Stage-5 provider layer):
-  keyless **Greenhouse / Lever / Ashby** and keyed **USAJobs**, plus **`linkedin-claude-fetch`**
-  (guest endpoints via WebFetch) as the default. Still future: paid storable corpora
+  keyless **Greenhouse / Lever / Ashby / SmartRecruiters** and keyed **USAJobs**, plus
+  **`linkedin-claude-fetch`** (guest endpoints via WebFetch) as the default — with SimHash
+  cross-listing dedup, a scan-history ledger, liveness checks, and a `scan` mode over a portals
+  config (structure ported from career-ops, MIT). Still future: paid storable corpora
   (JobDataFeeds/Techmap, Fantastic.jobs) only if bulk data is ever needed.
   - **Do not build a stored corpus on Adzuna / JSearch / Careerjet** — their ToS forbid
     persistence.

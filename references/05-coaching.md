@@ -38,11 +38,18 @@ Prefer **structured/keyless** sources; fall back to the user. Respect `goals.md`
    Small-batch/personal only (ToS gray area; don't bulk-harvest). This is "claude-fetch": Claude
    reads the guest response directly.
 2. **Public ATS APIs via `scripts/fetch_jobs.py` (keyless, storable-per-ToS, most reliable):**
-   - `python scripts/fetch_jobs.py greenhouse <company> --list [--match "director data"]`
-   - `... lever <company> --list` · `... ashby <board> --list`
+   - providers: **greenhouse · lever · ashby · smartrecruiters** (keyless). Add more by registering
+     a `list(company)->[dict]` fn (endpoint patterns for Workable/Recruitee/etc. are known — verify
+     a real slug first; no broken adapters).
+   - `python scripts/fetch_jobs.py <provider> <company> --list [--match "director data"]`
    - then `... <provider> <company> --id <id> --out data/<user>/targets/<slug>/posting.md`
-   These hit `boards-api.greenhouse.io` / `api.lever.co` / `api.ashbyhq.com` (no key) and write a
-   normalized `posting.md`. Great for "jobs at company X"; a company may not be on a given ATS.
+     (fetches the full body, appends to `targets/scan-history.tsv`, warns on a **SimHash
+     cross-listing duplicate** or an **expired** posting).
+   - **Scan many tracked companies** from a config: `python scripts/fetch_jobs.py scan --portals
+     data/<user>/portals.json [--match ...]` → deduped listing across companies (template:
+     `templates/portals.example.json`).
+   Great for "jobs at company X"; a company may not be on a given ATS. (Structure ported from
+   career-ops, MIT — see `ATTRIBUTIONS.md`.)
 3. **`usajobs` (keyed, US-federal, freely storable):**
    `python scripts/fetch_jobs.py usajobs "<keyword>" --list --key <KEY> --email <email>` (free key
    at developer.usajobs.gov). Key can live in the user's preferences/env.

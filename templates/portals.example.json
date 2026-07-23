@@ -1,0 +1,8 @@
+{
+  "_about": "Tracked companies for `python scripts/fetch_jobs.py scan --portals <this>`. Copy to data/<user>/portals.json (gitignored) and edit. Each entry: provider (greenhouse|lever|ashby|smartrecruiters), slug (the company/board slug on that ATS), optional match (case-insensitive title filter). scan lists all matches across companies and flags near-duplicate JDs (SimHash) reposted across companies.",
+  "tracked_companies": [
+    { "provider": "greenhouse", "slug": "gitlab", "match": "data" },
+    { "provider": "ashby", "slug": "linear", "match": "" },
+    { "provider": "smartrecruiters", "slug": "Visa", "match": "data" }
+  ]
+}
