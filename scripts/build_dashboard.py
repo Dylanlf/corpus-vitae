@@ -43,8 +43,12 @@ def fit_cell(job):
     risk = (job.get("screening_risk") or "").lower()
     rk = {"high": "risk-high", "med": "risk-med", "medium": "risk-med", "low": "risk-low"}.get(risk, "")
     badge = f"<span class='badge {rk}'>screen: {esc(job.get('screening_risk'))}</span>" if risk else ""
-    return (f"<b>{esc(cap if cap is not None else '–')}</b><span class='muted'>/10 cap</span> "
-            f"<span class='muted'>· lit {esc(lit if lit is not None else '–')} · want {esc(des if des is not None else '–')}</span> {badge}")
+    heuristic = job.get("method") == "heuristic"
+    approx = "~" if heuristic else ""
+    rough = "<span class='badge' title='rough heuristic triage — not the deep Stage-6 score'>rough</span>" if heuristic else ""
+    lit_txt = "–" if lit is None else esc(lit)  # heuristic leaves literal fit blank on purpose
+    return (f"<b>{approx}{esc(cap if cap is not None else '–')}</b><span class='muted'>/10 cap</span> "
+            f"<span class='muted'>· lit {lit_txt} · want {esc(des if des is not None else '–')}</span> {badge} {rough}")
 
 
 def signal_cell(job):
@@ -100,7 +104,7 @@ def build(db_path, out_path, user):
     db = sqlite3.connect(db_path); db.row_factory = sqlite3.Row
     rows = db.execute("""
       SELECT j.*, c.sector, c.employees, c.salary_benchmark, c.rating_links, c.award_pointers,
-             f.literal_fit, f.capability_fit, f.desire, f.screening_risk,
+             f.literal_fit, f.capability_fit, f.desire, f.screening_risk, f.method,
              i.rating, i.status
       FROM jobs j
       LEFT JOIN companies c ON c.company_key = j.company_key

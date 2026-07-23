@@ -52,7 +52,7 @@ or metrics.
 | `SKILL.md` | Skill entry point — the map of the 7 stages and where to start. |
 | `references/` | One playbook per stage (`00`–`07`); read the relevant one before running a stage. |
 | `templates/` | Schema (`corpus.schema.md`) and output templates. |
-| `scripts/` | `fetch_jobs.py` (job sourcing) · `fetch_company_intel.py` (Wikidata/BLS intel) · `build_index.py` (JSONL→SQLite) · `build_dashboard.py` (HTML) · `render_resume.py` (PDF/DOCX) · `requirements.txt`. |
+| `scripts/` | `fetch_jobs.py` (sourcing) · `fetch_company_intel.py` (Wikidata/BLS) · `prescore.py` (heuristic fit) · `build_index.py` (JSONL→SQLite) · `build_dashboard.py` (HTML) · `render_resume.py` (PDF/DOCX) · `requirements.txt`. |
 | `data/<user>/` | **Your** personal inputs and outputs (per-user; supports multiple people on one machine) — **gitignored, never committed.** |
 | `ATTRIBUTIONS.md` | Borrowed methods, the JSON Resume schema, and O*NET (CC BY 4.0). |
 

@@ -88,10 +88,20 @@ screening risk, legitimacy, one-line gist + recommended strategy) and discuss wi
 user can override the ordering — their priorities win.
 Typically you'd then tailor resumes (stage 7) for the ones they choose to pursue.
 
+## Two-tier scoring (triage vs deep analysis)
+The deep two-layer analysis above is expensive (one careful LLM pass per posting), so it can't cover a
+store of hundreds of jobs. Use two tiers:
+- **Tier 1 — heuristic pre-score (cheap, whole store):** `python scripts/prescore.py --user <user>`
+  writes a fast, offline capability/desire/screening-risk estimate for **every** ingested job
+  (`method: heuristic`), so the dashboard can rank everything. It's a **triage sort only** — capability
+  ≈ corpus-skill × JD keyword overlap — clearly labeled "rough/~", never the real score.
+- **Tier 2 — deep analysis (this stage, top-N):** run the full two-layer scorecard on the jobs the
+  triage surfaces; it writes `method: analyzed`, which **overrides** the heuristic in the index.
+
 ## Persist fit for the dashboard
-When you score a target that exists in the market store, append the result to `data/<user>/fit.jsonl`:
-`{job_key, literal_fit, capability_fit, desire, screening_risk, corpus_hash, ts}` (`corpus_hash` =
-a hash of `corpus.json` so the index can flag stale scores). This feeds the index + at-a-glance
+Append each score to `data/<user>/fit.jsonl`: `{job_key, literal_fit, capability_fit, desire,
+screening_risk, method (analyzed|heuristic), matched_skills?, corpus_hash, ts}` (`corpus_hash` = a
+hash of `corpus.json` so stale scores are re-computed when the corpus changes). Feeds the index +
 dashboard (`references/10-market-db.md`, `11-dashboard.md`).
 
 **Next:** stage 7 (`references/07-tailoring.md`).

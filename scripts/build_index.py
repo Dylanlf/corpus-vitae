@@ -127,7 +127,22 @@ def build(shared, user_dir, out):
     ratings = latest_by([e for e in inter_events if e.get("event") in ("like", "dislike", "hide")], ["job_key"], "ts")
     statuses = latest_by([e for e in inter_events if e.get("event") == "status"], ["job_key"], "ts")
     notes = latest_by([e for e in inter_events if e.get("note")], ["job_key"], "ts")
-    fit = latest_by(load_jsonl(os.path.join(user_dir, "fit.jsonl")), ["job_key"], "ts")
+    # fit: prefer an analyzed score over any heuristic; else latest by ts
+    fit_rows = load_jsonl(os.path.join(user_dir, "fit.jsonl"))
+    fit = {}
+    for r in fit_rows:
+        k = r.get("job_key")
+        if not k:
+            continue
+        cur = fit.get(k)
+        if cur is None:
+            fit[(k,)] = r; fit[k] = r; continue
+        cur_analyzed = cur.get("method") == "analyzed"
+        new_analyzed = r.get("method") == "analyzed"
+        if (new_analyzed and not cur_analyzed) or \
+           (new_analyzed == cur_analyzed and r.get("ts", "") >= cur.get("ts", "")):
+            fit[(k,)] = r; fit[k] = r
+    fit = {kk: v for kk, v in fit.items() if isinstance(kk, tuple)}
 
     os.makedirs(os.path.dirname(out) or ".", exist_ok=True)
     if os.path.exists(out):
@@ -143,7 +158,7 @@ def build(shared, user_dir, out):
         salary_benchmark TEXT, rating_links TEXT, award_pointers TEXT, fetched_at TEXT);
       CREATE TABLE interactions(job_key TEXT PRIMARY KEY, rating TEXT, status TEXT, note TEXT, updated TEXT);
       CREATE TABLE fit(job_key TEXT PRIMARY KEY, literal_fit REAL, capability_fit REAL, desire REAL,
-        screening_risk TEXT, corpus_hash TEXT, ts TEXT);
+        screening_risk TEXT, method TEXT, matched_skills INT, corpus_hash TEXT, ts TEXT);
     """)
     for k, j in jobs.items():
         db.execute("INSERT INTO jobs VALUES (?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)", (
@@ -173,9 +188,10 @@ def build(shared, user_dir, out):
                    "ON CONFLICT(job_key) DO UPDATE SET note=excluded.note",
                    (jk, r.get("note", ""), r.get("ts", "")))
     for (jk,), r in fit.items():
-        db.execute("INSERT OR REPLACE INTO fit VALUES (?,?,?,?,?,?,?)", (
+        db.execute("INSERT OR REPLACE INTO fit VALUES (?,?,?,?,?,?,?,?,?)", (
             jk, r.get("literal_fit"), r.get("capability_fit"), r.get("desire"),
-            r.get("screening_risk", ""), r.get("corpus_hash", ""), r.get("ts", "")))
+            r.get("screening_risk", ""), r.get("method", ""), r.get("matched_skills"),
+            r.get("corpus_hash", ""), r.get("ts", "")))
     db.commit()
     counts = {t: db.execute(f"SELECT COUNT(*) FROM {t}").fetchone()[0]
               for t in ("jobs", "companies", "interactions", "fit")}

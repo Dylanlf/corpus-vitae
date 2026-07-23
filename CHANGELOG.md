@@ -2,6 +2,18 @@
 
 All notable changes to corpus-vitae. Versions are the `version` in `SKILL.md` frontmatter.
 
+## 1.7.0
+
+Added — **two-tier scoring** so the dashboard ranks the whole store, not just hand-analyzed jobs:
+- **`scripts/prescore.py`** — fast, offline **heuristic** fit for every ingested job (capability ≈
+  corpus-skill × JD overlap; desire ≈ goals directions/avoid; screening-risk ≈ degree/years/location
+  knockouts). Writes `method:heuristic` rows to `fit.jsonl`, skips jobs already fresh under the current
+  corpus, and re-scores when `corpus.json` changes. Strictly a triage sort — shown as "rough/~" and
+  never presented as the real capability score.
+- **`build_index.py`** now carries `method` and **prefers an `analyzed` score over any heuristic**;
+  **`build_dashboard.py`** marks heuristic rows "rough/~". The deep Stage-6 analysis overrides the
+  heuristic for top-N targets.
+
 ## 1.6.0
 
 Added — job market DB, per-user overlay & at-a-glance dashboard:

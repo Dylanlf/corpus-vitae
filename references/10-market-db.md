@@ -30,6 +30,14 @@ searchable job-search cockpit. **Files are canon; SQLite is a rebuildable index.
   `first_ingested` is a floor, not the true original post date.
 - **Temporal:** per `job_key`, the index derives `first_ingested`, `last_seen`, `times_seen`.
 
+## Pre-score the whole store (so the dashboard ranks everything)
+```
+python scripts/prescore.py --user <user>
+```
+Fast, offline **heuristic** fit for every ingested job → `fit.jsonl` (`method:heuristic`, tagged
+"rough" on the dashboard). Skips jobs already scored under the current corpus; re-scores when
+`corpus.json` changes. The deep Stage-6 analysis (`method:analyzed`) overrides it for top targets.
+
 ## Build the index (rebuildable; never the source of truth)
 ```
 python scripts/build_index.py --user <user>
