@@ -32,6 +32,15 @@ This is where a stretch candidate who can grow into the role scores high even wh
   sometimes a research-heavy team really does require the credential/DL depth. Label it as an
   inference and note that risk; don't assume the charitable read.
 
+**Value-fit read (the "title trap" check).** As part of decoding the true need, ask explicitly:
+*does this role own a revenue lever / strategic mandate that matches the user's value thesis and
+desired role attributes (`goals.md`)?* Record the matched **archetype** (from
+`data/<user>/title-search.json` / `job-archetype.jsonl`). This is the payoff of searching by value
+thesis rather than title: a weird-titled role can be a top target. The tell-tale signature for these
+roles is **literal fit LOW + capability/value fit HIGH + screening risk HIGH** — that's *expected*,
+not a red flag, and routes straight to *bypass-the-filter* (below). Never down-rank a role just
+because its title isn't a conventional match; score the true need.
+
 ### 3. Desire (0–10)
 How well the role matches `goals.md` — ranked work values, energizers, constraints. A hard-constraint
 violation (below comp floor, wrong location) caps desire low regardless of appeal; say so explicitly.

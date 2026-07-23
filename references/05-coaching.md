@@ -7,18 +7,53 @@ the saved `posting.md`.
 
 Read `data/kb/corpus.json` and `data/goals.md` first.
 
-## 1. Propose titles and directions
+## 1. From value thesis → archetypes → a wide title set (beat the "title trap")
 
-From the corpus (what they can do) and goals (what they want), propose a spread of **specific
-job titles** — not vague fields. For each, give a one-line "why this fits you" grounded in
-real corpus entries, and note the type of move (lateral / step-up / pivot).
+Don't start from a single obvious title — that *silently* misses the roles the user is best at,
+because the same work wears different labels across orgs ("VP of Growth" ≈ "Head of Monetization"
+≈ "Chief of Staff" ≈ "Head of Strategic Data Opportunities"). Start from the **value thesis** and
+**desired role attributes** in `goals.md` and work outward:
 
-- Include the **obvious** titles for their background, a few **adjacent** ones they may not
-  have considered (transferable-skills plays), and clearly label any **stretch** titles.
-- Titles vary by company/industry for the same work — offer the common synonyms (e.g.
-  "Operations Coordinator" ≈ "Ops Associate" ≈ "Program Coordinator") so searches are broad.
-- Present the set and **ask the user which resonate** before you go fetch postings. Don't
-  boil the ocean; converge on ~3–6 title/direction bets with them.
+1. **Derive 3–5 role archetypes** from the value thesis — clusters of roles that all deliver that
+   function (e.g. *Revenue-Lever Owner*, *0→1 Data/Growth Leader*, *Founder's Right-Hand / BizOps*).
+   Give each a one-line "why this fits you" grounded in real corpus / `x_cv.narrative` entries, and
+   note the move type (lateral / step-up / pivot).
+2. **Pick 2–3 seed titles per archetype** — the clearest real-world labels (e.g. "VP of Growth",
+   "Head of Monetization").
+3. **Expand each seed into a wide neighbor set** — the "radius search": list the titles *semantically
+   adjacent* to each seed **across company stages** (startup → scaleup → enterprise), including ones
+   neither of you would think to filter for. You (Claude) are the expansion engine — use your
+   internalized sense of the title space and cast wide, because recall is the whole point here and
+   precision comes later from the JD read.
+4. **Write it to `data/<user>/title-search.json`** (template: `templates/title-search.example.json`):
+   value thesis, location `geoId`, and each archetype with its `seed_titles` + `expanded_titles`.
+5. **Converge with the user first.** Present the **archetypes** (not the raw title list) and **ask
+   which resonate**; drop/add archetypes on their feedback before sourcing. Don't boil the ocean —
+   ~3–5 archetypes.
+
+**Guiding principle: titles are search *hints*, not the filter.** They fill the funnel (recall);
+what a role *actually owns* — read from the JD body and scored in Stage 6 — decides what to keep
+(precision). Expect the best strategic roles to have **low literal fit but high value fit**, and a
+pure title-radius to drift (e.g. "VP Growth" neighbors skew toward performance-marketing) — the JD
+read is what corrects it.
+
+### Build the search plan
+```
+python scripts/expand_titles.py --user <user>
+```
+Dedups the union of titles and writes `data/<user>/title-search-plan.md` — a ready-to-run set of
+LinkedIn guest search URLs + `usajobs` commands, grouped by archetype. Run those via the sourcing
+layer below (LinkedIn guest through `WebFetch`; usajobs through `fetch_jobs.py`); everything ingests
+into `data/_shared/jobs.jsonl` as usual. After fetching, attribute results back to archetypes:
+```
+python scripts/expand_titles.py --user <user> --attribute
+```
+→ `data/<user>/job-archetype.jsonl` (`{job_key, archetype, matched_title}`), so coaching and the
+dashboard can group by archetype. Attribution matches on each archetype's optional `match_keywords`
+(short **function** signals like `quant` — *not* sector words like `fintech`, which would mis-tag a
+fintech CMO), falling back to the expanded titles. Off-thesis drift (e.g. LinkedIn returning "VP
+Marketing" for a "VP of Growth" search) correctly stays **unmatched** — that's the funnel working,
+not a bug; the JD read in Stage 6 is the real precision gate.
 
 ## 2. Source real postings from the web
 

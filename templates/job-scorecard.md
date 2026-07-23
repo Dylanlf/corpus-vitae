@@ -9,6 +9,7 @@ Copy the blocks below, fill them in, and delete this comment.
 
 # Scorecard — <Job title> @ <Company>
 
+- archetype: <matched role archetype from title-search.json, or "—">   # value-fit / "title trap" tag
 - literal fit: <0-10>        # meets STATED must-haves (predicts screening risk)
 - capability fit: <0-10>     # can do the TRUE job (capability + learning-agility evidence)
 - desire: <0-10>

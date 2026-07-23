@@ -10,7 +10,7 @@ description: >-
   a specific job, figure out what jobs to apply for, capture their career history, prep
   for a career change, or turn accomplishments into resume material — even if they don't
   say the word "resume." Does NOT apply to jobs on the user's behalf (out of scope).
-version: 1.7.0
+version: 1.8.0
 ---
 
 # corpus-vitae
@@ -70,6 +70,13 @@ Paths below use `data/<user>/…`; see **Multiple users** below for how the acti
 **Stage 2.5 (Narrative interview)** is the skill's signature layer: it captures *disposition and
 trajectory* (growth arc, learning agility, differentiation, operating principles) — the evidence
 that someone can grow into a stretch role. Facts live in stages 2–3; the *story* lives here.
+
+**Value-thesis search (stages 4–5)** beats the "title trap": stage 4 names *what the user sells* (a
+one-sentence value thesis + desired role attributes, not a title), and stage 5 expands that into 3–5
+role **archetypes** and a wide set of candidate titles (`scripts/expand_titles.py` →
+`data/<user>/title-search.json`) so the search surfaces great-fit roles with unconventional titles
+("Head of Monetization", "Chief of Staff") instead of filtering on "data scientist." Titles are
+search *hints*; the stage-6 capability/value-fit read decides what to keep.
 
 **Read the stage's reference file before running that stage.** Each reference is the
 detailed playbook for its stage; this file is only the map.

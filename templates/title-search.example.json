@@ -1,0 +1,58 @@
+{
+  "_comment": "Value-thesis search config (v1.8) — beats the 'title trap'. Authored by Claude in Stages 4-5, then consumed by scripts/expand_titles.py. Lives at data/<user>/title-search.json (gitignored). 'expanded_titles' are the LLM 'radius search' around each seed: a wide set of adjacent titles across company stages that all map to the same value thesis — they drive the SEARCH PLAN (recall). 'match_keywords' are short signal phrases used only by --attribute to group fetched jobs by archetype (robust to real-world title variety, e.g. 'quant' + 'quantitative'); if omitted, attribution falls back to the expanded titles. Prefer FUNCTION words over SECTOR words in match_keywords (e.g. 'quant' not 'fintech') so a sector-adjacent role like a fintech CMO isn't mis-tagged. Titles are search HINTS; the JD body + Stage-6 capability/value-fit decide what to keep (precision).",
+  "value_thesis": "Find a revenue lever, model it, build it, and own the decision end-to-end.",
+  "location": {
+    "geoId": "103644278",
+    "label": "United States"
+  },
+  "archetypes": [
+    {
+      "name": "Revenue-Lever Owner",
+      "note": "Owns a P&L / monetization lever end-to-end; strategy + build, not pure analytics.",
+      "match_keywords": ["growth", "monetization", "revenue", "pricing"],
+      "seed_titles": ["VP of Growth", "Head of Monetization"],
+      "expanded_titles": [
+        "VP of Growth",
+        "Head of Monetization",
+        "Director of Growth",
+        "Head of Revenue Operations",
+        "VP of Revenue",
+        "GM, Growth",
+        "Head of Pricing & Monetization",
+        "Director of Revenue Strategy"
+      ]
+    },
+    {
+      "name": "0-to-1 Data/Growth Leader",
+      "note": "Builds the data/growth function from scratch at an early-stage or scaling company.",
+      "match_keywords": ["founding", "first data", "head of data", "head of data science"],
+      "seed_titles": ["Head of Data", "Founding Data Scientist"],
+      "expanded_titles": [
+        "Head of Data",
+        "Founding Data Scientist",
+        "Head of Data Science",
+        "Director of Data Science",
+        "Head of Analytics",
+        "First Data Hire",
+        "Head of Data & Analytics",
+        "Principal Data Scientist"
+      ]
+    },
+    {
+      "name": "Founder's Right-Hand / BizOps",
+      "note": "Cross-functional, high-autonomy 'figure out how we make money' role next to the CEO.",
+      "match_keywords": ["chief of staff", "business operations", "strategy & operations", "strategic initiatives", "strategic finance"],
+      "seed_titles": ["Chief of Staff to the CEO", "Head of Business Operations"],
+      "expanded_titles": [
+        "Chief of Staff to the CEO",
+        "Head of Business Operations",
+        "Head of Strategy & Operations",
+        "Director of Strategic Finance",
+        "Head of Strategic Initiatives",
+        "VP of Business Operations",
+        "Head of Strategic Data Opportunities"
+      ]
+    }
+  ],
+  "generated_at": "2026-07-23"
+}

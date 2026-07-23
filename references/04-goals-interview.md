@@ -39,6 +39,30 @@ Cover these, conversationally (one thread at a time), and write the answers to `
 5. **Appetite for change** — lateral move, step up, or genuine pivot? How much retraining are
    they willing to do, and how fast do they need a role?
 
+## Value thesis + desired role attributes (beats the "title trap")
+
+Before you translate goals into job titles, name **what the user actually sells** — the underlying
+function they create value with, independent of any title. This is the single most important output
+of this stage for aiming the search, because targeting by literal title (e.g. "data scientist")
+*silently* misses the roles they'd be best at: the same work is labeled inconsistently across orgs
+("VP of Growth", "Head of Monetization", "Chief of Staff", "Head of Strategic Data Opportunities"),
+so a title-filtered search never even surfaces them.
+
+- **Value thesis (one sentence).** Draw it out and write it plainly, e.g. *"I find a revenue lever,
+  model it, build it, and own the decision end-to-end."* Ground it in the corpus and `x_cv.narrative`
+  (their differentiators, throughline, energizers). Ask the user to confirm/sharpen it — it must be
+  *theirs*, not a flattering paraphrase.
+- **Desired role attributes (not titles).** Capture what they want as **attributes** a role either has
+  or doesn't — e.g. revenue/P&L ownership, autonomy, a 0→1 build mandate, strategic influence,
+  cross-functional reach, small-team vs big-org. These become the real target definition; Stage 5
+  turns them into a wide set of candidate titles, and Stage 6 scores roles against them (the
+  "value-fit read"). A role can have a weird title and still be a perfect attribute match — that's
+  exactly the kind of role we don't want to miss.
+
+Note where their energizers/drainers cut against a path (e.g. a step-up-to-VP path may add the
+persuasion/meeting load that drains them) — that tension is useful signal for Stage 6, not a
+disqualifier.
+
 ## Synthesis: overlap + a few paths
 
 Then reflect back a short synthesis, in your own words (do not brand it or reproduce any
@@ -81,6 +105,14 @@ Write a concise, human-readable file (this one is Markdown, not JSON) with secti
 
 ## Appetite for change
 - lateral | step-up | pivot; retraining tolerance: ...
+
+## Value thesis
+<one sentence: the underlying function the user sells, independent of title>
+
+## Desired role attributes
+- must-have: <e.g. revenue/P&L ownership, autonomy, 0→1 build mandate>
+- nice-to-have: <e.g. small team, cross-functional reach>
+- avoid: <e.g. heavy-consensus / meeting-driven cultures>
 
 ## Candidate directions
 1. <direction> — why it fits

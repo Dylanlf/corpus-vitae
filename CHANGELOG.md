@@ -2,6 +2,27 @@
 
 All notable changes to corpus-vitae. Versions are the `version` in `SKILL.md` frontmatter.
 
+## 1.8.0
+
+Added — **value-thesis search** to beat the "title trap" (targeting one literal title, e.g. "data
+scientist", silently misses the best-fit roles because orgs label the same work inconsistently):
+- **Stage 4** (`04-goals-interview.md`) now names a one-sentence **value thesis** (what the user
+  actually sells) and captures desire as **role attributes**, not titles; both added to the
+  `goals.md` schema.
+- **Stage 5** (`05-coaching.md`) reworked to derive 3–5 role **archetypes** from the value thesis,
+  pick seed titles, and **LLM-expand** each seed into a wide cross-company-stage neighbor set (the
+  "radius search"). Titles are treated as search *hints* (recall); the JD body decides what to keep.
+- **`scripts/expand_titles.py`** (stdlib) — reads a Claude-authored `data/<user>/title-search.json`
+  → a deduped, archetype-grouped **search plan** (`title-search-plan.md`: LinkedIn guest URLs +
+  usajobs commands); `--attribute` tags fetched jobs in `jobs.jsonl` to archetypes
+  (`job-archetype.jsonl`) by per-archetype **`match_keywords`** (short *function* signals like
+  `quant`, not *sector* words like `fintech`, which mis-tag sector-adjacent roles), falling back to
+  the expanded titles. Template: `templates/title-search.example.json`.
+- **Stage 6** (`06-scoring.md`) gains an explicit **value-fit read**: record the matched archetype
+  and treat *literal-low / value-high / screening-risk-high* as the expected signature for
+  unconventional-titled roles → route to bypass-the-filter. Optional `archetype` line on the
+  scorecard. (No automated scoring-dimension change; value-fit stays a documented Stage-6 read.)
+
 ## 1.7.0
 
 Added — **two-tier scoring** so the dashboard ranks the whole store, not just hand-analyzed jobs:
