@@ -2,6 +2,21 @@
 
 All notable changes to corpus-vitae. Versions are the `version` in `SKILL.md` frontmatter.
 
+## 1.12.0
+
+Added — **Stage 10: optional application autofill** (`references/12-autofill.md`), one application at a
+time, **opt-in and fully skippable** (`autofill` pref, default false):
+- Uses `profile.json` (Stage 0) + the tailored résumé PDF (Stage 8) + `apply_url` (v1.11) to **fill** a
+  live form in logged-in Chrome (`claude-in-chrome`), then **stops for the human to review and submit**.
+- **`scripts/fill_plan.py`** — turns `profile.json` (+ optional target `apply_url`) into a reviewable
+  `fill-plan.md`: **auto-fill** (factual), **ask-first** (compensation, voluntary EEO), and **you'll
+  answer live** (blanks + custom/knockout questions). Review-first, no browser action.
+- **Hard safety spine:** fill only / **never submit**; explicit per-application go-ahead before entering
+  PII; logins, account creation, CAPTCHAs, and payment are **handed back to the user**; comp/EEO only on
+  opt-in; knockout answers never guessed; no fabrication.
+- Degrades gracefully: if the Chrome extension isn't connected, emit the fill plan as a copy-paste
+  cheat-sheet and stop. `SKILL.md` "Out of scope" reconciled — we *fill* (opt-in), never submit.
+
 ## 1.11.0
 
 Added — capture the **exact company/ATS apply link** (`apply_url`) for every job, distinct from where

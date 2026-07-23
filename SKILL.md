@@ -10,7 +10,7 @@ description: >-
   a specific job, figure out what jobs to apply for, capture their career history, prep
   for a career change, or turn accomplishments into resume material — even if they don't
   say the word "resume." Does NOT apply to jobs on the user's behalf (out of scope).
-version: 1.11.0
+version: 1.12.0
 ---
 
 # corpus-vitae
@@ -84,6 +84,7 @@ Paths below use `data/<user>/…`; see **Multiple users** below for how the acti
 | 7.5 | Callability review | résumé + posting | `.../callability.md` | `references/07b-callability-review.md` |
 | 8 | Format / export | `.../resume.json`/`.md` | `.../<Name>-Resume.pdf`/`.docx` | `references/08-formatting.md` |
 | 9 | Phone-screen prep | résumé + posting + gaps + narrative | `.../interview-prep.md` | `references/09-interview-prep.md` |
+| 10 | Application autofill *(opt-in, skippable)* | profile + résumé + apply_url | fills a live form; **never submits** | `references/12-autofill.md` |
 | — | Job market DB *(subsystem)* | jobs + company intel + interactions | `data/_shared/*.jsonl`, `data/<user>/index.db` | `references/10-market-db.md` |
 | — | At-a-glance dashboard *(subsystem)* | `index.db` | `data/<user>/dashboard.html` | `references/11-dashboard.md` |
 
@@ -166,10 +167,14 @@ Any explicit per-run instruction from the user overrides these. Fields:
   machine owner's session; occasional use only) | `greenhouse`/`lever`/`ashby`/`smartrecruiters` |
   `usajobs` | `paste` (see `05-coaching.md`).
 - `output_formats` (default **md, pdf, docx**) — Stage-8 formats to generate.
+- `autofill` (default **false**, opt-in) — enable the Stage-10 browser autofill of an application form
+  (fills only, never submits; needs logged-in Chrome + the Claude extension). Skippable; off unless asked.
 - `usajobs` — optional free API key + email for the USAJobs source.
 
-## Out of scope for v1
+## Out of scope
 
-Applying to jobs, submitting forms, contacting anyone, or tracking applications. The skill
-hands the finished resume to the user and stops. Other formats (docx/PDF/HTML), a job
-tracker, and structured job-board APIs are noted as future work in `references/00-overview.md`.
+**Submitting** applications, **creating accounts**, entering passwords, solving CAPTCHAs, contacting
+anyone, or tracking applications on the user's behalf. The optional Stage-10 autofill
+(`references/12-autofill.md`) *fills* an application form you're applying to — opt-in, with your
+go-ahead, and **never submits**; you review and click submit. A job tracker and structured job-board
+APIs remain future work (`references/00-overview.md`).
