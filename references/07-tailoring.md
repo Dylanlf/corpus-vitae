@@ -62,7 +62,8 @@ support, either drop it or go ask the user and add it to the corpus (with proven
 
 ## Settings & AI provenance (Enhancement C)
 
-Confirm these with the user (sensible defaults below); they control provenance and the AI-use story.
+These **default from `data/<user>/preferences.json`** (loaded at session start — see `SKILL.md`);
+any explicit per-run instruction overrides. They control provenance and the AI-use story.
 
 | setting | default | effect |
 |---------|---------|--------|

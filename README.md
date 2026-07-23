@@ -47,7 +47,7 @@ or metrics.
 | `SKILL.md` | Skill entry point — the map of the 7 stages and where to start. |
 | `references/` | One playbook per stage (`00`–`07`); read the relevant one before running a stage. |
 | `templates/` | Schema (`corpus.schema.md`) and output templates. |
-| `scripts/` | Helper scripts — `render_resume.py` (ATS-safe PDF/DOCX export) + `requirements.txt`. |
+| `scripts/` | Helper scripts — `fetch_jobs.py` (keyless job sourcing) + `render_resume.py` (ATS-safe PDF/DOCX) + `requirements.txt`. |
 | `data/<user>/` | **Your** personal inputs and outputs (per-user; supports multiple people on one machine) — **gitignored, never committed.** |
 | `ATTRIBUTIONS.md` | Borrowed methods, the JSON Resume schema, and O*NET (CC BY 4.0). |
 

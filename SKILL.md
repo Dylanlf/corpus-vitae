@@ -10,7 +10,7 @@ description: >-
   a specific job, figure out what jobs to apply for, capture their career history, prep
   for a career change, or turn accomplishments into resume material — even if they don't
   say the word "resume." Does NOT apply to jobs on the user's behalf (out of scope).
-version: 1.3.0
+version: 1.4.0
 ---
 
 # corpus-vitae
@@ -116,12 +116,20 @@ rationale, honesty philosophy, and future-work seams.
   scaffold, competency map, the Google "XYZ" bullet formula, and the
   "defend-it-in-an-interview" honesty test.
 
-## Settings (Stage 7)
+## User preferences (`data/<user>/preferences.json`)
 
-A small set of tailoring settings the user can override (defaults in `references/07-tailoring.md`):
-the **honesty dial** (0–10, default ~6), `build_credit` (neutral footer, on), `show_dial` (print the
-dial number — **off**; it stays internal in `resume.json` `meta`), `ai_narrative` (opt-in "I build
-with AI" story — off), and `audience` (`ai-forward` | `traditional`).
+Each user has a preferences file holding their **defaults**. **Load it at session start** (right
+after resolving the active user); if absent, create it from `templates/preferences.example.json`.
+Any explicit per-run instruction from the user overrides these. Fields:
+
+- `honesty_dial` (default **6**) — Stage-7 tailoring intensity (framing only, never fabrication).
+- `build_credit` (default **true**) — include the neutral "Drafted with corpus-vitae" footer.
+- `show_dial` (default **false**) — keep the dial number internal (`resume.json` `meta`), never printed.
+- `ai_narrative` (default **false**, opt-in) — the corpus-vitae "I build with AI" project/cover element.
+- `audience` (default **traditional**; or `ai-forward`) — gates how prominently `ai_narrative` shows.
+- `job_source` (default **`linkedin-claude-fetch`**) — Stage-5 default source (see `05-coaching.md`).
+- `output_formats` (default **md, pdf, docx**) — Stage-8 formats to generate.
+- `usajobs` — optional free API key + email for the USAJobs source.
 
 ## Out of scope for v1
 

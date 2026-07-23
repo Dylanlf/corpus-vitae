@@ -22,34 +22,40 @@ real corpus entries, and note the type of move (lateral / step-up / pivot).
 
 ## 2. Source real postings from the web
 
-For the agreed titles, find **real, current-or-recent** postings (the user asked for real,
-possibly older, examples — recency isn't required, representativeness is).
+Find **real, current-or-recent** postings (recency isn't required, representativeness is), using
+the flexible sourcing layer below. The default source is set in the user's preferences
+(`job_source`, default `linkedin-claude-fetch`); switch per target as needed.
 
-- Use **`WebSearch`** to find listings (try title + location/remote + seniority; try a few
-  synonyms). Then **`WebFetch`** the promising ones to pull the actual posting text.
-- Prefer postings that are representative of the target, not outliers. A handful of good ones
-  per direction beats a giant pile.
-- Respect the user's constraints from `goals.md` (location/remote, comp, industries to avoid)
-  when choosing what to surface.
+### Sourcing providers (flexible — pick per target)
 
-### Fetching reality (learned the hard way — follow this order)
+Prefer **structured/keyless** sources; fall back to the user. Respect `goals.md` constraints
+(location/remote, comp, industries) when choosing what to surface.
 
-Full-posting fetching is unreliable; plan for it instead of fighting it:
+1. **`linkedin-claude-fetch` (default).** LinkedIn's **guest** endpoints are fetchable via
+   `WebFetch` (built for logged-out users — no key, no login wall, and they bypass the SPA):
+   - search list → `https://www.linkedin.com/jobs-guest/jobs/api/seeMoreJobPostings/search?keywords=<kw>&geoId=103644278&start=0` (geoId 103644278 = US; page via `start`)
+   - one posting → `https://www.linkedin.com/jobs-guest/jobs/api/jobPosting/{id}`
+   Small-batch/personal only (ToS gray area; don't bulk-harvest). This is "claude-fetch": Claude
+   reads the guest response directly.
+2. **Public ATS APIs via `scripts/fetch_jobs.py` (keyless, storable-per-ToS, most reliable):**
+   - `python scripts/fetch_jobs.py greenhouse <company> --list [--match "director data"]`
+   - `... lever <company> --list` · `... ashby <board> --list`
+   - then `... <provider> <company> --id <id> --out data/<user>/targets/<slug>/posting.md`
+   These hit `boards-api.greenhouse.io` / `api.lever.co` / `api.ashbyhq.com` (no key) and write a
+   normalized `posting.md`. Great for "jobs at company X"; a company may not be on a given ATS.
+3. **`usajobs` (keyed, US-federal, freely storable):**
+   `python scripts/fetch_jobs.py usajobs "<keyword>" --list --key <KEY> --email <email>` (free key
+   at developer.usajobs.gov). Key can live in the user's preferences/env.
+4. **`WebSearch` + `WebFetch`** for discovery and for company career pages not on the above.
+5. **User paste (always-available fallback).** When automated fetch fails or a posting is behind a
+   login, ask the user to paste the text or name company+role. A single real, complete posting
+   beats ten half-scraped ones — this is normal, not a failure.
 
-- **Aggregators block bots.** Indeed, Glassdoor, LinkedIn, startup.jobs, and **Lever**
-  (`jobs.lever.co`) typically return **403** to `WebFetch`. Don't rely on them for full text.
-- **Greenhouse is the most fetchable**, but: the `boards.greenhouse.io` host **301-redirects**
-  to `job-boards.greenhouse.io` (follow it), individual job IDs **go stale/404** or resolve to
-  the board **index** (only titles/locations, no body). Best bet is the **public JSON API**
-  (no key): `https://boards-api.greenhouse.io/v1/boards/{company}/jobs/{id}` — try this before
-  scraping HTML. (Future work: proper adapters for Greenhouse/Lever/Ashby JSON and USAJobs — see
-  `references/00-overview.md`.)
-- **Search-result blurbs are not the posting.** They're the search engine's paraphrase; never
-  save them into a target as if they were the real requirements.
-- **The reliable fallback is the user.** When fetching fails (it often will), just **ask the
-  user to paste the posting text**, or to name a company + role so you can try that company's
-  careers page/ATS directly. This is normal, not a failure — most users have specific targets in
-  mind. A single real, complete, user-provided posting beats ten half-scraped ones.
+**Fetching gotchas (still true):** aggregators (Indeed/Glassdoor/startup.jobs) and `jobs.lever.co`
+HTML 403 `WebFetch`; `boards.greenhouse.io` 301-redirects to `job-boards.greenhouse.io` and job
+IDs go stale — which is exactly why the keyless **JSON APIs** (via `fetch_jobs.py`) and the LinkedIn
+**guest** endpoints are preferred over scraping rendered pages. **Search-result blurbs are not the
+posting** — never save a paraphrase as if it were the real requirements.
 
 ### Save each posting
 

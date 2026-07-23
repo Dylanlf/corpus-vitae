@@ -2,6 +2,20 @@
 
 All notable changes to corpus-vitae. Versions are the `version` in `SKILL.md` frontmatter.
 
+## 1.4.0
+
+Added:
+- **Flexible job sourcing (Stage 5).** A provider layer instead of ad-hoc scraping: default
+  **`linkedin-claude-fetch`** (LinkedIn guest endpoints via WebFetch — keyless, bypasses the SPA),
+  plus **`scripts/fetch_jobs.py`** (stdlib, no deps) for keyless public ATS APIs
+  (**Greenhouse, Lever, Ashby**) and keyed **USAJobs**, normalizing to `posting.md`. Honest
+  per-provider ToS/storage notes; user-paste remains the always-available fallback.
+- **Per-user preferences (`data/<user>/preferences.json`).** Defaults loaded at session start
+  (template: `templates/preferences.example.json`): `honesty_dial` 6, `build_credit` true,
+  `show_dial` false, `ai_narrative` false, `audience` traditional, `job_source`
+  linkedin-claude-fetch, `output_formats` [md,pdf,docx], optional USAJobs key. Any per-run
+  instruction overrides.
+
 ## 1.3.0
 
 Added:
