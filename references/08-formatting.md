@@ -64,12 +64,14 @@ FILE NAME  FirstName-LastName-Resume.pdf / .docx (optionally add role). Hyphens;
    It drops the internal `meta` (so the honesty dial never prints) and adds the neutral build-credit
    footer unless `--no-credit` is passed.
    ```
-   python -m venv .venv                                   # .venv is gitignored
-   .venv/bin/python -m pip install -r scripts/requirements.txt   # python-docx, reportlab
+   python scripts/setup.py                                # one-time: builds .venv + installs deps
    .venv/bin/python scripts/render_resume.py data/<user>/targets/<slug>/resume.json
    ```
-   If the system python has no pip/ensurepip, bootstrap once with the official
-   get-pip.py (https://bootstrap.pypa.io/get-pip.py) against the venv interpreter, then install.
+   `scripts/setup.py` is idempotent and handles the common gotchas itself: it creates the gitignored
+   `.venv` and installs `python-docx` + `reportlab`, and if the system python lacks pip/ensurepip it
+   bootstraps pip via the official get-pip.py automatically. **If setup can't finish** (no network /
+   locked-down machine), still hand over `resume.md` and offer a Print-to-PDF path — don't surface the
+   error to the user (see "How this runs" in `SKILL.md`).
 3. **Browser/word-processor "Print/Save as PDF"** produces a text layer too — acceptable, but avoid
    anything that rasterizes (screenshot/scan/flatten/design-tool image export).
 

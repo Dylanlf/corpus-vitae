@@ -22,10 +22,11 @@ them automatically. Like all personal data, `profile.json` lives only under giti
 
 ## Steps
 
-1. **Look in `data/inbox/`.** Create it if missing (`mkdir -p data/inbox`). List what's there.
-2. **If it's empty,** ask the user to drop an old resume in — any of PDF, DOCX, TXT, or MD.
-   If they genuinely have no resume, that's fine: tell them we'll build the corpus from the
-   interview instead, and skip straight to stage 2.
+1. **Check `data/<user>/inbox/`** (create it if missing). See what's there.
+2. **If it's empty, ask for their resume in whatever form is easiest** — attach it here, paste the
+   text, or tell you where it is on the computer; **you** save it into `inbox/` (don't ask them to
+   move files around). If they don't have one or don't want to dig it up, that's fine: say so and go
+   straight to the interview (stage 2) — we'll build the corpus from the conversation.
 3. **Read each file** with the right tool:
    - **PDF** → use the **`pdf` skill** to extract text.
    - **DOCX** → use the **`docx` skill**.

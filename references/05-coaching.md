@@ -78,6 +78,11 @@ Prefer **structured/keyless** sources; fall back to the user. Respect `goals.md`
    Honest discipline: a single, human-directed fetch of a page the user chose, via their own session —
    equivalent to them browsing to it — **not** list-scraping. One at a time; behave like normal
    browsing. Requires the Chrome extension connected; fall back to guest-fetch / paste if absent.
+   **Whose account:** Chrome is logged in as the *machine's owner*, who may not be the active skill
+   user (e.g. a spouse searching on a shared laptop). Fine for a fetch or two of a page they'd view
+   anyway, but don't make it the routine source for someone who isn't the account owner — repeated
+   job-fetching would run through the owner's LinkedIn session. For volume, the default keyless
+   **guest** fetch (`linkedin-claude-fetch`) is account-neutral — prefer it.
 2. **Public ATS APIs via `scripts/fetch_jobs.py` (keyless, storable-per-ToS, most reliable):**
    - providers: **greenhouse · lever · ashby · smartrecruiters** (keyless). Add more by registering
      a `list(company)->[dict]` fn (endpoint patterns for Workable/Recruitee/etc. are known — verify

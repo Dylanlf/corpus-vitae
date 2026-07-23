@@ -10,7 +10,7 @@ description: >-
   a specific job, figure out what jobs to apply for, capture their career history, prep
   for a career change, or turn accomplishments into resume material — even if they don't
   say the word "resume." Does NOT apply to jobs on the user's behalf (out of scope).
-version: 1.9.0
+version: 1.10.0
 ---
 
 # corpus-vitae
@@ -32,12 +32,31 @@ honesty dial (stage 7) controls how aggressively we frame, never whether we tell
 When you're tempted to add a number or claim the user didn't give you, **ask them — don't
 invent it.**
 
+## How this runs (so anyone can use it)
+
+Assume the user is **non-technical** and may be new to working with Claude. Make it feel like a
+guided conversation, not a tool they have to operate:
+
+- **You do all the file work.** You create, write, and edit every file — `profile.json`,
+  `corpus.json`, `title-search.json`, `preferences.json`, `goals.md`, the résumés. **Never ask the
+  user to open, edit, paste, or locate a JSON file or a path**, and never show raw JSON for approval.
+  Read choices back in plain English and let them confirm or correct in words.
+- **Guide like a wizard, one thing at a time.** Ask a single question, wait, then continue. Say which
+  step you're on and what's next. The user can say "pause", "skip", or "go back" any time.
+- **Sensible defaults, no setup quiz.** Create `preferences.json` silently with defaults; surface a
+  setting only when it actually matters.
+- **Degrade gracefully.** If an optional tool isn't available (the PDF/DOCX renderer, Chrome, an API
+  key), keep going with what works — e.g. hand over the Markdown résumé — and explain in one plain
+  sentence. Do the setup yourself when you can; **never surface a stack trace, pip error, or file
+  path** to the user.
+
 ## The pipeline (7 stages)
 
-The stages usually run in order, but this is a **conversation, not a rigid wizard** — the
-user can jump in anywhere, skip, repeat, or come back later. Always tell the user which
-stage you're in and what the next one is. The knowledge base (stage 3) is the durable
-center everything else reads from and writes to.
+**Default to guiding the user step by step** (see above). The stages usually run in order; it's still
+a conversation, not a locked flow — someone who knows what they want can jump in anywhere, skip,
+repeat, or come back later — but **lead by default**, especially for anyone unsure. Always tell the
+user which stage you're in and what's next. The knowledge base (stage 3) is the durable center
+everything else reads from and writes to.
 
 Two cross-cutting rules:
 - **The corpus is comprehensive.** Capture the user's *entire* history at full depth —
@@ -82,19 +101,24 @@ search *hints*; the stage-6 capability/value-fit read decides what to keep.
 **Read the stage's reference file before running that stage.** Each reference is the
 detailed playbook for its stage; this file is only the map.
 
-## Multiple users (per-user data)
+## Multiple users on one machine
 
-One machine can serve several people. All personal data is namespaced under **`data/<user>/`**
-(e.g. `data/dylan/kb/corpus.json`). **Resolve the active user at the start of every session,
-before touching any `data/…` path:**
+One machine can serve a few people (e.g. `data/dylan/`, `data/priya/`) — typically a household
+sharing a computer, not isolated accounts. All personal data is namespaced under **`data/<user>/`**.
+Note `data/_shared/` is **not** a user — it's the shared job store; skip it when listing users.
 
-- If exactly one directory exists under `data/`, use it.
-- If several exist, **ask which user** this session is for.
-- If none exist, ask the user's name/handle and create `data/<user>/` (kebab-case).
+The goal is just to keep people's stuff from getting tangled and to onboard a newcomer smoothly — it
+is **not** a security boundary. At session start, work out who you're talking to:
 
-Throughout this file and the reference docs, a path written `data/…` means
-`data/<active-user>/…`. Never read or write another user's directory in the same session, and
-never mix two people's data in one corpus.
+- **One user folder exists (the common case):** greet as that person, but say it out loud so a
+  newcomer can redirect — e.g. *"Picking up as Dylan — tell me if this is someone else."* Don't
+  interrogate.
+- **It's someone new (they say so, or no folder exists):** ask their first name or a handle, create
+  `data/<name>/` (kebab-case) + `data/<name>/inbox/`, and start fresh from Stage 0.
+- **Several folders exist and it's ambiguous:** just ask which one.
+
+A path written `data/…` means `data/<active-user>/…`. Keep a session in one person's folder; if
+you're genuinely unsure who's active, ask.
 
 ## Where to start
 
@@ -137,8 +161,9 @@ Any explicit per-run instruction from the user overrides these. Fields:
 - `show_dial` (default **false**) — keep the dial number internal (`resume.json` `meta`), never printed.
 - `ai_narrative` (default **false**, opt-in) — the corpus-vitae "I build with AI" project/cover element.
 - `audience` (default **traditional**; or `ai-forward`) — gates how prominently `ai_narrative` shows.
-- `job_source` (default **`linkedin-claude-fetch`**) — Stage-5 default source: `linkedin-claude-fetch`
-  | `chrome-single` (logged-in Chrome, one page) | `greenhouse`/`lever`/`ashby`/`smartrecruiters` |
+- `job_source` (default **`linkedin-claude-fetch`**, keyless guest — account-neutral) — Stage-5
+  source: `linkedin-claude-fetch` | `chrome-single` (logged-in Chrome, one page — runs through the
+  machine owner's session; occasional use only) | `greenhouse`/`lever`/`ashby`/`smartrecruiters` |
   `usajobs` | `paste` (see `05-coaching.md`).
 - `output_formats` (default **md, pdf, docx**) — Stage-8 formats to generate.
 - `usajobs` — optional free API key + email for the USAJobs source.

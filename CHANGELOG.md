@@ -2,6 +2,30 @@
 
 All notable changes to corpus-vitae. Versions are the `version` in `SKILL.md` frontmatter.
 
+## 1.10.0
+
+Changed — make a fresh session usable by a **non-technical** person (e.g. a family member on a shared
+machine), wizard-first:
+- **SKILL.md "How this runs"**: default to a guided, one-step-at-a-time conversation; **Claude does
+  all file work and never asks the user to open / edit / paste / locate JSON or a path**, reads
+  choices back in plain English, uses sensible defaults (no setup quiz), and **degrades gracefully**
+  — never surfaces a stack trace, pip error, or path. Pipeline reframed from "not a rigid wizard" to
+  "guide like a wizard by default; power users can still jump around."
+- **Lighter multi-user handling** (a household sharing a machine, *not* a security boundary): don't
+  silently assume the lone `data/<user>/` folder is the current person — greet as them but say so so a
+  newcomer can redirect; onboard a new person by creating their own folder from Stage 0. `data/_shared/`
+  is excluded from the user list.
+- **Intake**: ask for the resume however is easiest (attach / paste / point to it) and save it for
+  them; fixed the path to `data/<user>/inbox/`.
+- **chrome-single note**: it runs through the *machine owner's* logged-in Chrome session (may not be
+  the active user) — fine for a fetch or two, but the keyless guest default (`linkedin-claude-fetch`)
+  is account-neutral and preferred for anything routine.
+- **`scripts/setup.py`** — one-shot, idempotent renderer bootstrap: creates the gitignored `.venv`,
+  installs `python-docx` + `reportlab`, and bootstraps pip via get-pip.py when the system python has
+  no pip/ensurepip. Replaces the manual venv/pip steps in Stage 8; on failure the skill falls back to
+  the Markdown résumé. (Verified on a Python 3.14 box with no ensurepip — the get-pip fallback path
+  runs cleanly.)
+
 ## 1.9.0
 
 Added — a local-only **profile / bio** as the first step (Stage 0):
