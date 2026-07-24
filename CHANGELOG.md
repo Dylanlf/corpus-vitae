@@ -2,6 +2,16 @@
 
 All notable changes to corpus-vitae. Versions are the `version` in `SKILL.md` frontmatter.
 
+## 1.14.0
+
+Changed — **Stage 1 intake now explicitly invites all career materials, not just a résumé**
+(`references/01-intake.md`): résumé/CV, cover letters, LinkedIn export, performance/self-reviews, brag
+docs / accomplishment lists, task/role descriptions & JDs, certifications/licenses/transcripts, project
+write-ups, portfolios, awards, and recommendation letters. Richer input → a stronger corpus and a
+lighter interview. Reads PDF/DOCX/XLSX/CSV/images (OCR for scanned certs), **labels each fact with its
+source document**, and flags contradictions to resolve in the interview. README + `SKILL.md`
+"where to start" updated to match.
+
 ## 1.13.0
 
 Changed — documentation truth-pass + positioning (readies the skill for non-author user testing):

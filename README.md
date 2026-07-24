@@ -57,7 +57,7 @@ run in order but you can jump around.
 | # | Stage | What happens |
 |---|-------|--------------|
 | 0 | **Profile / bio** | Capture a local-only bio (contact, links, work eligibility, comp expectations) — feeds the résumé header and optional autofill. |
-| 1 | **Intake** | Read an old résumé however's easiest (attach / paste / point to it), or skip if you don't have one. |
+| 1 | **Intake** | Bring **any** career materials — résumé, cover letters, reviews, brag docs, certs, project write-ups, LinkedIn export — however's easiest (attach / paste / point to it), or skip if you have none. |
 | 2 | **Experience interview** | Elicit the untold detail — STAR stories, real numbers, competency coverage. *(The deep part.)* |
 | 2.5 | **Narrative interview** | The *story* layer: growth arc, learning agility, differentiation, operating principles. |
 | 3 | **Knowledge base** | Build `corpus.json` — your durable, reusable facts & stories. |

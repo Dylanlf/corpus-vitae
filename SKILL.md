@@ -10,7 +10,7 @@ description: >-
   a specific job, figure out what jobs to apply for, capture their career history, prep
   for a career change, or turn accomplishments into resume material — even if they don't
   say the word "resume." Does NOT apply to jobs on the user's behalf (out of scope).
-version: 1.13.0
+version: 1.14.0
 ---
 
 # corpus-vitae
@@ -129,8 +129,10 @@ you're genuinely unsure who's active, ask.
 ## Where to start
 
 - **First time / "help me with my resume" / "what jobs should I go for":** resolve the active
-  user (above), then start at stage 1. If `data/<user>/inbox/` is empty, ask them to drop an old
-  resume there (any of pdf, docx, txt, md). If they have no resume, skip to stage 2 and build the
+  user (above), then start at stage 1. If `data/<user>/inbox/` is empty, ask for **any career
+  materials** — résumé, cover letters, LinkedIn export, performance reviews, brag docs, task/role
+  descriptions, certifications, project write-ups, awards — in whatever form is easiest (attach,
+  paste, or point to a path; you save them). If they have nothing, skip to stage 2 and build the
   corpus purely from the interview.
 - **Corpus already exists (`data/<user>/kb/corpus.json`):** skip intake/interview unless the user
   wants to add more; go to whichever stage they need (often 5–7).
