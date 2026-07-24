@@ -2,6 +2,21 @@
 
 All notable changes to corpus-vitae. Versions are the `version` in `SKILL.md` frontmatter.
 
+## 1.13.0
+
+Changed — documentation truth-pass + positioning (readies the skill for non-author user testing):
+- **`references/00-overview.md` rewritten** to kill stale contradictions: it had said "conversation,
+  not wizard" (vs the wizard-default), "we do NOT build a stored job corpus" (vs the v1.6 market DB),
+  and pointed at "references 01–07". Now reflects the real stage set (0–12), per-user paths, the
+  profile asset, value-thesis search, the market DB, and opt-in autofill.
+- **Positioning up front (README + SKILL + overview):** this is an **intensive corpus build, not a
+  5-minute résumé polish** — the deep interview is the cost; the payoff is fast, reusable, flexible
+  résumés across a whole search. Claude now sets this expectation early.
+- **"Why finding jobs is hard" front-and-center** (README + overview): no free/legal bulk job API,
+  aggregators block automated fetches, ATS listings go stale — so results can be thin, and
+  **user-paste is the reliable backbone** (everything downstream works on a pasted posting).
+- README pipeline/layout refreshed to the real stages + scripts; `SKILL.md` "(7 stages)" → "(0–10)".
+
 ## 1.12.0
 
 Added — **Stage 10: optional application autofill** (`references/12-autofill.md`), one application at a

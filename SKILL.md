@@ -10,7 +10,7 @@ description: >-
   a specific job, figure out what jobs to apply for, capture their career history, prep
   for a career change, or turn accomplishments into resume material — even if they don't
   say the word "resume." Does NOT apply to jobs on the user's behalf (out of scope).
-version: 1.12.0
+version: 1.13.0
 ---
 
 # corpus-vitae
@@ -49,8 +49,13 @@ guided conversation, not a tool they have to operate:
   key), keep going with what works — e.g. hand over the Markdown résumé — and explain in one plain
   sentence. Do the setup yourself when you can; **never surface a stack trace, pip error, or file
   path** to the user.
+- **Set expectations up front.** This is an intensive build of a durable corpus, **not a 5-minute
+  résumé polish** — the deep interview (stages 2–4) is the cost; the payoff is fast, flexible,
+  reusable résumés for every future job and direction. Say so early so the user opts in knowingly.
+  Separately, flag that live job **sourcing** is the unreliable part (the market has no free bulk API)
+  — **pasting a posting always works**, and everything downstream runs fine on a pasted one.
 
-## The pipeline (7 stages)
+## The pipeline (stages 0–10)
 
 **Default to guiding the user step by step** (see above). The stages usually run in order; it's still
 a conversation, not a locked flow — someone who knows what they want can jump in anywhere, skip,
